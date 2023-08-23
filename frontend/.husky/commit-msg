@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-#npx --no -- commitlint --edit
-cd frontend && pnpm commitlint --edit 
+pnpm dlx commitlint --edit 
