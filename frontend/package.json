@@ -15,9 +15,6 @@
         "test-all": "pnpm run check-format && pnpm run check-lint && pnpm run check-types && pnpm run build"
     },
     "dependencies": {
-        "@commitlint/cli": "^17.7.1",
-        "@commitlint/config-conventional": "^17.7.0",
-        "@commitlint/types": "^17.4.4",
         "@types/node": "20.5.1",
         "@types/react": "18.2.20",
         "@types/react-dom": "18.2.7",
