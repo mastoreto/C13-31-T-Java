@@ -15,6 +15,7 @@
         "test-all": "pnpm run check-format && pnpm run check-lint && pnpm run check-types && pnpm run build"
     },
     "dependencies": {
+        "@nextui-org/react": "^2.1.5",
         "@types/node": "20.5.1",
         "@types/react": "18.2.20",
         "@types/react-dom": "18.2.7",
@@ -25,6 +26,7 @@
         "eslint": "8.47.0",
         "eslint-config-next": "13.4.18",
         "eslint-plugin-react": "^7.33.2",
+        "framer-motion": "^10.16.1",
         "lint-staged": "^14.0.1",
         "next": "13.4.18",
         "postcss": "8.4.28",
