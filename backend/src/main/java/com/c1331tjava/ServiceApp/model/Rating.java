@@ -18,10 +18,10 @@ public class Rating {
     private Long id;
 
     @ManyToOne
-    private User client;
+    private UserEntity client;
 
     @ManyToOne
-    private User provider;
+    private UserEntity provider;
 
     @ManyToOne
     private Request request;

@@ -19,7 +19,7 @@ public class Request {
     private Long id;
 
     @ManyToOne
-    private User client;
+    private UserEntity client;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)

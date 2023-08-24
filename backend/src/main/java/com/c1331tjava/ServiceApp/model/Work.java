@@ -20,7 +20,7 @@ public class Work {
     private Long id;
 
     @ManyToOne
-    private User provider;
+    private UserEntity provider;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
