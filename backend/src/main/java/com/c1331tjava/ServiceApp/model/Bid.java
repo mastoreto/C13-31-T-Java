@@ -19,7 +19,7 @@ public class Bid {
     private Long id;
 
     @ManyToOne
-    private User provider;
+    private UserEntity provider;
 
     @Column (length = 200)
     private String response;
