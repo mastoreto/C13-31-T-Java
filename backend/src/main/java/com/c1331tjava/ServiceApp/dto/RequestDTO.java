@@ -16,5 +16,4 @@ public class RequestDTO {
     private Set<ProviderDTO> providers;
     private String comments;
     private Boolean ended;
-
 }

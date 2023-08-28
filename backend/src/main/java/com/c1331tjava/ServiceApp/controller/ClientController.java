@@ -36,24 +36,19 @@ public class ClientController {
      *
      * @return User details
      */
-    @Operation(summary = "Get a Client User by its username(email)",
+    @Operation(summary = "Get Client details by its username(email)",
             description = "<p>Only authorized to Client users.</p>" +
                     "<p>Extract query username from JWT</p>")
     @GetMapping("/details")
-    public ClientDTO findByEmail(@Valid @ParameterObject ClientDTO clientDTO){
+    public ClientDTO findByEmail(){
 
         String currentUser = securityConfig.getUserNameFromToken();
-
-        if (!currentUser.equals(clientDTO.getEmail())){
-            throw new CrossUserException();
-        }
-
-        UserEntity currentUserEntity;
         try {
-            currentUserEntity = this.userEntityService.findByEmail(currentUser).get();
+            return modelMapper.map(
+                    this.userEntityService.findByEmail(currentUser).get(),
+                    ClientDTO.class);
         } catch (Exception e) {
             throw new CustomedHandler(e.getMessage());
         }
-        return modelMapper.map(currentUserEntity,ClientDTO.class);
     }
 }

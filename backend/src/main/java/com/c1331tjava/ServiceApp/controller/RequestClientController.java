@@ -41,17 +41,13 @@ public class RequestClientController {
      * @return RequestListPageDTO with totalPages, requestPerPage, totalRequest,
      * currentPage and List<RequestDTO>;
      */
-    @Operation(summary = "Get Request list of a client",
+    @Operation(summary = "Get paged Request list of a client",
             description = "<p>Only authorized to Client users.</p>" +
                     "<p>Extract query username from JWT</p>")
     @GetMapping("/list/paged")
-    public RequestListPagedDTO findByClientAndActive(@ParameterObject ClientDTO clientDTO, @ParameterObject Pageable pageable){
+    public RequestListPagedDTO findByClientAndActive(@ParameterObject Pageable pageable){
 
         String currentUser = securityConfig.getUserNameFromToken();
-
-        if (!currentUser.equals(clientDTO.getEmail())){
-            throw new CrossUserException();
-        }
 
         UserEntity currentUserEntity;
         try {

@@ -7,4 +7,3 @@
 - Fix relations on Request entity
 - Fix relations on Bid Entity
 - Fix relations on ImageR Entity
-- 

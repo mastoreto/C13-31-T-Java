@@ -14,5 +14,4 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
     Page<Request> findByClientAndActiveTrue(UserEntity userEntity, Pageable pageable);
-
 }
