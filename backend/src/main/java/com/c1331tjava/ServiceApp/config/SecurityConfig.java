@@ -75,8 +75,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth
                             .requestMatchers("/api/v1/auth/**").permitAll()
-                            .requestMatchers("/api/v1/request/client/**").authenticated()
-                            .requestMatchers("/api/v1/bid/client/**").authenticated()
+                            .requestMatchers("/api/v1/client/**").hasRole("Client")
                             .requestMatchers("/api/v1/users").authenticated()
                             .anyRequest().permitAll();
                 })

@@ -1,7 +1,8 @@
-package com.c1331tjava.ServiceApp.dto.bidController;
+package com.c1331tjava.ServiceApp.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
 
 @Data
 public class BidDetailsDTO {

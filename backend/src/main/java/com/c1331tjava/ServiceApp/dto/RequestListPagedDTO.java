@@ -1,6 +1,5 @@
-package com.c1331tjava.ServiceApp.dto.requestController;
+package com.c1331tjava.ServiceApp.dto;
 
-import com.c1331tjava.ServiceApp.dto.RequestDTO;
 import com.c1331tjava.ServiceApp.model.Request;
 import lombok.Data;
 import org.modelmapper.ModelMapper;

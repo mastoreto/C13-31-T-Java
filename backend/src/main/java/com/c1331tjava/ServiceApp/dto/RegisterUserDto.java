@@ -1,6 +1,5 @@
 package com.c1331tjava.ServiceApp.dto;
 
-import com.c1331tjava.ServiceApp.model.Area;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
