@@ -12,13 +12,13 @@ public class LoginUserDto {
     /**
      * The username for authentication.
      */
-    @NotNull
+    @NotNull (message = "Username must not be null")
     private String email;
 
     /**
      * The password for authentication.
      */
-    @NotNull
+    @NotNull (message = "Password must not be null")
     private String password;
 }
 
