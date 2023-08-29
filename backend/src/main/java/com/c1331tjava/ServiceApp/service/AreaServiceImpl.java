@@ -6,6 +6,9 @@ import com.c1331tjava.ServiceApp.repository.I_AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class AreaServiceImpl implements I_AreaService {
     @Autowired
@@ -13,5 +16,9 @@ public class AreaServiceImpl implements I_AreaService {
     @Override
     public Area findByName(AreasNames name) {
         return areaRepository.findByName(name);
+    }
+
+    public List<Area> findAll(){
+        return this.areaRepository.findAll();
     }
 }
