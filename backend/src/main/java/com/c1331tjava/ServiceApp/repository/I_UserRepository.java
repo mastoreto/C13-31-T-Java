@@ -27,5 +27,6 @@ public interface I_UserRepository extends CrudRepository<UserEntity, Long> {
      * @return An Optional containing the user entity if found, or an empty Optional if not found.
      */
     Optional<UserEntity> findByEmail(String email);
+    Optional<UserEntity> findByEmailAndActiveTrue(String email);
 }
 

@@ -18,8 +18,11 @@ public class Bid {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserEntity provider;
+
+    @ManyToOne
+    private Request request;
 
     @Column (length = 200)
     private String response;
@@ -39,7 +42,4 @@ public class Bid {
 
     @Column (columnDefinition = "boolean default true")
     private Boolean active;
-
-    @ManyToOne
-    private Request request;
 }
