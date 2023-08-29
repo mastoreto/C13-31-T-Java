@@ -50,12 +50,18 @@ public class RequestClientController {
         String currentUser = securityConfig.getUserNameFromToken();
 
         UserEntity currentUserEntity;
+
         try {
-            currentUserEntity = this.userEntityService.findByEmail(currentUser).get();
+            currentUserEntity = this.userEntityService.findByEmailAndActiveTrue(currentUser).get();
         } catch (Exception e) {
-            throw new CustomedHandler(e.getMessage());
+            throw new CustomedHandler("Error retrieving user details from database");
         }
-        Page<Request> RequestPaged = this.requestService.findByClientAndActiveTrue(currentUserEntity, pageable);
+        Page<Request> RequestPaged = null;
+        try {
+            RequestPaged = this.requestService.findByClientAndActiveTrue(currentUserEntity, pageable);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error accessing Request database");
+        }
         return new RequestListPagedDTO(RequestPaged);
     }
 
