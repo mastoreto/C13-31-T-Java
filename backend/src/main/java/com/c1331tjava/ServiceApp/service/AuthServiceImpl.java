@@ -57,39 +57,17 @@ public class AuthServiceImpl implements I_UserService {
     private List<Role> setRole(List<String> roles) {
         List<Role> aux = new ArrayList<>();
             for (int i=0;i<roles.size();i++){
-                aux.add(this.roleService.findByName(setErole(roles.get(i))));
+                aux.add(this.roleService.findByName(RolesNames.valueOf(roles.get(i))));
             }
         return aux;
     }
     private long generateRandomId() {
         return random.nextLong();
     }
-    private RolesNames setErole(String rol) {
-        RolesNames aux = null;
-        if (rol.equalsIgnoreCase("Client")) {
-            aux = RolesNames.Client;
-        } else if (rol.equalsIgnoreCase("Provider")) {
-            aux = RolesNames.Provider;
-        } else if (rol.equalsIgnoreCase("Admin")) {
-            aux = RolesNames.Admin;
-        }
-        return aux;
-    }
     private List<Area> setArea(List<String> areas) {
         List<Area> aux = new ArrayList<>();
         for (int i=0;i<areas.size();i++){
-            aux.add(this.areaService.findByName(setEArea(areas.get(i))));
-        }
-        return aux;
-    }
-    private AreasNames setEArea(String rol) {
-        AreasNames aux = null;
-        if (rol.equalsIgnoreCase("Masonry")) {
-            aux = AreasNames.Masonry;
-        } else if (rol.equalsIgnoreCase("Plumbing")) {
-            aux = AreasNames.Plumbing;
-        } else if (rol.equalsIgnoreCase("Smithy")) {
-            aux = AreasNames.Smithy;
+            aux.add(this.areaService.findByName(AreasNames.valueOf(areas.get(i))));
         }
         return aux;
     }

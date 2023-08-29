@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,11 +32,11 @@ public class Request {
     @Column (length = 200)
     private String description;
 
-    @OneToMany (mappedBy = "request")
-    private List<ImagesR> images;
+    @OneToMany (fetch = FetchType.EAGER)
+    private Set<ImagesR> images;
 
-    @OneToMany (mappedBy = "request")
-    private List<Bid> bids;
+    @OneToMany (fetch = FetchType.EAGER)
+    private Set<UserEntity> providers;
 
     @Column (length = 200)
     private String comments;
