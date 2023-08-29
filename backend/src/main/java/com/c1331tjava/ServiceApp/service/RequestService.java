@@ -27,11 +27,11 @@ public class RequestService {
      */
     public Page<Request> findByClientAndActiveTrue(UserEntity userEntity, Pageable pageable){
 
-        try {
+//        try {
             return this.requestRepository.findByClientAndActiveTrue(userEntity, pageable);
-        } catch (Exception e) {
-            throw new CustomedHandler(e.getMessage());
-        }
+//        } catch (Exception e) {
+//            throw new CustomedHandler("Error accessing database");
+//        }
 
     }
 
@@ -39,7 +39,7 @@ public class RequestService {
         try {
             return this.requestRepository.findById(id);
         } catch (Exception e) {
-            throw new CustomedHandler(e.getMessage());
+            throw new CustomedHandler("Error accessing database");
         }
 
     }

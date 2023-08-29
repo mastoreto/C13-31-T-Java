@@ -16,23 +16,21 @@ public class UserEntityService {
 
     public Optional<UserEntity> findByEmail(String email){
 
-        try {
             return userRepository.findByEmail(email);
-        } catch (Exception e) {
-            throw new CustomedHandler(e.getMessage());
-        }
 
+    }
+    public Optional<UserEntity> findByEmailAndActiveTrue(String email){
+
+        return userRepository.findByEmailAndActiveTrue(email);
+
+    }
+
+    public void save(UserEntity userEntity){
+
+            this.userRepository.save(userEntity);
     }
 
     public Optional<UserEntity> findById(Long id){
-        try {
-            if (this.userRepository.findById(id).isPresent()){
-                return this.userRepository.findById(id);
-            }
-        } catch (Exception e) {
-            throw new CustomedHandler(e.getMessage());
-        }
-        throw new CustomedHandler ("Invalid UserEntity Id");
+            return this.userRepository.findById(id);
     }
-
 }
