@@ -1,5 +1,6 @@
 package com.c1331tjava.ServiceApp.security.filter;
 
+import com.c1331tjava.ServiceApp.exception.CustomedHandler;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,7 +46,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             if (jwtUtil.isTokenValid(token)) {
                 String username = jwtUtil.getUserNameToken(token);
-                UserDetails userDetails = userService.loadUserByUsername(username);
+                UserDetails userDetails = null;
+                try {
+                    userDetails = userService.loadUserByUsername(username);
+                } catch (Exception e) {
+                    throw new CustomedHandler("Error retrieving data from user database");
+                }
 
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
@@ -53,7 +59,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

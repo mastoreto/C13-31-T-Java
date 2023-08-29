@@ -91,6 +91,16 @@ public class AuthController {
         }
         return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
     }
+
+
+    /**
+     *
+     * Class to handle @Valid exception and personalize error message
+     *
+     * @param ex type: MethodArgumentNotValidException, exception thrown by @Valid
+     * @return Personalized error message
+     */
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

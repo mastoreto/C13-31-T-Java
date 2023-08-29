@@ -7,3 +7,8 @@
 - Fix relations on Request entity
 - Fix relations on Bid Entity
 - Fix relations on ImageR Entity
+
+### HU-B-4
+
+- Added Try/Catch in JwtAuthorizationFilter to manage exception on database query
+- 
