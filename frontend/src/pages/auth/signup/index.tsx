@@ -1,31 +1,42 @@
+"use client"
 import { useEffect, useRef } from "react";
 import { type NextPage } from "next";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { Poppins } from "next/font/google"
+import useApi from "@hooks/useApi";
 import { Input, Checkbox, Button, input } from "@nextui-org/react";
 import Alert from "@components/Alert";
+
 const poppins = Poppins({ weight: "400", subsets: ["latin-ext"] });
 
 const SignUp: NextPage = () => {
+
+  const { mutate, data } = useApi("/auth/register");
+
+  const registrarUsuario = async (values: any) => {
+    await mutate(values);
+    console.log(data);
+  }
+
   const formik = useFormik({
     initialValues: {
-      name: '',
-      lastName: '',
-      birthDate: '',
+      userName: '',
+      userLastname: '',
       email: '',
       password: '',
       repassword: '',
+      birthDate: '',
       phone: '',
       acceptTerms: false
     },
     validationSchema: Yup.object({
-      name: Yup.string()
+      userName: Yup.string()
         .min(3, 'El nombre debe tener al menos 3 caracteres')
         .max(15, 'El nombre debe tener como maximo 15 caracteres')
         .required('El nombre es requerido'),
-      lastName: Yup.string()
+      userLastname: Yup.string()
         .min(3, 'El apellido debe tener al menos 3 caracteres')
         .max(15, 'El apellido debe tener como maximo 15 caracteres')
         .required('El apellido es requerido'),
@@ -51,7 +62,10 @@ const SignUp: NextPage = () => {
         .oneOf([true], 'Debes aceptar los terminos y condiciones')
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      const { birthDate } = values;
+      const convertDate = new Date(birthDate);
+
+      registrarUsuario(convertDate);
     },
   });
 
@@ -61,10 +75,10 @@ const SignUp: NextPage = () => {
         <div>
           <h1 className={`${poppins.className}`}>Registrarse</h1>
           <form className="flex flex-col justify-between items-center p-5 w-[25rem] h-[40rem]" onSubmit={(e) => formik.handleSubmit(e)}>
-            <Input isRequired type='text' name="name" id="name" onChange={(e) => formik.handleChange(e)} onBlur={(e) => formik.handleBlur(e)} label='Nombre' placeholder='Nombre' className={`${poppins.className} max-x-xs`} value={formik.values.name} />
-            {formik.errors.name && formik.touched.name && <Alert message={formik.errors.name} />}
-            <Input isRequired type='text' name="lastName" id="lastName" onChange={(e) => formik.handleChange(e)} onBlur={(e) => formik.handleBlur(e)} label='Apellido' placeholder='Apellido' className={`${poppins.className} max-x-xs`} value={formik.values.lastName} />
-            {formik.errors.lastName && formik.touched.lastName && <Alert message={formik.errors.lastName} />}
+            <Input isRequired type='text' name="userName" id="userName" onChange={(e) => formik.handleChange(e)} onBlur={(e) => formik.handleBlur(e)} label='Nombre' placeholder='Nombre' className={`${poppins.className} max-x-xs`} value={formik.values.userName} />
+            {formik.errors.userName && formik.touched.userName && <Alert message={formik.errors.userName} />}
+            <Input isRequired type='text' name="userLastname" id="userLastname" onChange={(e) => formik.handleChange(e)} onBlur={(e) => formik.handleBlur(e)} label='Apellido' placeholder='Apellido' className={`${poppins.className} max-x-xs`} value={formik.values.userLastname} />
+            {formik.errors.userLastname && formik.touched.userLastname && <Alert message={formik.errors.userLastname} />}
             <Input isRequired type='date' name="birthDate" onChange={(e) => formik.handleChange(e)} onBlur={(e) => formik.handleBlur(e)} label='Fecha de nacimiento' placeholder="25/05/1997" className={`${poppins.className} max-x-xs`} value={formik.values.birthDate} />
             {formik.errors.birthDate && formik.touched.birthDate && <Alert message={formik.errors.birthDate} />}
             <Input isRequired type='email' name="email" onChange={(e) => formik.handleChange(e)} onBlur={(e) => formik.handleBlur(e)} label='Email' placeholder='Correo electronico' className={`${poppins.className} max-x-xs`} value={formik.values.email} />
