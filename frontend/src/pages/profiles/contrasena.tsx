@@ -105,7 +105,6 @@ const contrasena = () => {
                                     label="Contraseña actual"
                                     labelPlacement="outside"
                                     placeholder="Ingresa tu Contraseña Actual"
-                                    // description="outside"
                                 />
                             </div>
                             <div className="flex w-64 text-xl my-4 flex-wrap  md:flex-nowrap mb-6 md:mb-0 gap-4 text-start">
@@ -114,7 +113,6 @@ const contrasena = () => {
                                     label="Nueva Contraseña"
                                     labelPlacement="outside"
                                     placeholder="Ingresa tu Nueva Contraseña"
-                                    // description="outside"
                                 />
                             </div>
                             <Button color="primary" className="mt-6">
