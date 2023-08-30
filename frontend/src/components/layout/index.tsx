@@ -1,12 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Layout: React.FC = () => {
-
-  return (
-   <div>
-      app contianer
-    </div>
-  );
-}
+    return <div>app contianer</div>;
+};
 
 export default Layout;
