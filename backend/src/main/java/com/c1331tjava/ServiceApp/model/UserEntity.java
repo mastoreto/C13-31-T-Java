@@ -5,6 +5,7 @@ package com.c1331tjava.ServiceApp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -26,6 +27,9 @@ public class UserEntity {
     private String userLastname;
     @Column (length = 40, nullable = false)
     private String email;
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date birthDate;
     @Column (length = 60, nullable = false)
     private String password;
     @Column (length = 30)
