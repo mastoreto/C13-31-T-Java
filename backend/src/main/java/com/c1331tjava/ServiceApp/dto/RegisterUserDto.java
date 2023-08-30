@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,8 @@ public class RegisterUserDto {
     private String password;
     @NotNull
     private String email;
+    @NotNull
+    private Date birthDate;
     @NotNull
     private String te;
     @Nullable
