@@ -6,8 +6,6 @@ import { Button, Card, CardHeader, CardBody, Image, Divider } from '@nextui-org/
 const user = () => {
     return (
         <>
-            {/* <div className="max-w"> */}
-            {/* <Divider className="my-4" /> */}
             <div className="flex items-center space-x-4 text-small">
                 <Card
                     className="py-4 w-1/5 
@@ -114,7 +112,6 @@ const user = () => {
                     </CardHeader>
                 </Card>
             </div>
-            {/* </div > */}
         </>
     );
 };

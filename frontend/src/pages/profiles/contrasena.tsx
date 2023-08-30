@@ -1,11 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardHeader, CardBody, Image, Divider, Input, Button } from '@nextui-org/react';
-const contraseña = () => {
+const contrasena = () => {
     return (
         <>
             <div className="max-w">
-                {/* <Divider className="my-4" /> */}
                 <div className="flex  items-center space-x-4 text-small">
                     <Card
                         className="py-4 w-1/5 
@@ -124,10 +123,9 @@ const contraseña = () => {
                         </CardHeader>
                     </Card>
                 </div>
-                {/* <Divider orientation="vertical" /> */}
             </div>
         </>
     );
 };
 
-export default contraseña;
+export default contrasena;

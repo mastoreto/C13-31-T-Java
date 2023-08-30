@@ -6,7 +6,6 @@ const resultados = () => {
     return (
         <>
             <div className="max-w">
-                {/* <Divider className="my-4" /> */}
                 <div className="flex  items-center space-x-4 text-small">
                     <Card
                         className="py-4 w-1/5 
@@ -107,7 +106,6 @@ const resultados = () => {
                                     label="Contraseña actual"
                                     labelPlacement="outside"
                                     placeholder="Ingresa tu Contraseña Actual"
-                                    // description="outside"
                                 />
                             </div>
                             <div className="flex w-64 text-xl my-4 flex-wrap  md:flex-nowrap mb-6 md:mb-0 gap-4 text-start">
@@ -116,7 +114,6 @@ const resultados = () => {
                                     label="Nueva Contraseña"
                                     labelPlacement="outside"
                                     placeholder="Ingresa tu Nueva Contraseña"
-                                    // description="outside"
                                 />
                             </div>
                             <Button color="primary" className="mt-6">
@@ -125,7 +122,6 @@ const resultados = () => {
                         </CardHeader>
                     </Card>
                 </div>
-                {/* <Divider orientation="vertical" /> */}
             </div>
         </>
     );
