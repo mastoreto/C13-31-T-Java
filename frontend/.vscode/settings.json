@@ -9,10 +9,7 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "conventionalCommits.scopes": [
-        "Frontend",
-        "Repositorio"
-    ],
+    "conventionalCommits.scopes": ["Frontend", "Repositorio"],
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     }
