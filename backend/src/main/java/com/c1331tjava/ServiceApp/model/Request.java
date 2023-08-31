@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,8 +24,7 @@ public class Request {
     private UserEntity client;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne
     private Zone zone;
@@ -32,7 +32,7 @@ public class Request {
     @Column (length = 200)
     private String description;
 
-    @OneToMany (fetch = FetchType.EAGER)
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ImagesR> images;
 
     @OneToMany (fetch = FetchType.EAGER)

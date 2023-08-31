@@ -3,22 +3,31 @@ package com.c1331tjava.ServiceApp.controller;
 import com.c1331tjava.ServiceApp.config.SecurityConfig;
 import com.c1331tjava.ServiceApp.dto.ClientDTO;
 import com.c1331tjava.ServiceApp.dto.RequestListPagedDTO;
+import com.c1331tjava.ServiceApp.dto.RequestSaveDTO;
 import com.c1331tjava.ServiceApp.exception.CrossUserException;
 import com.c1331tjava.ServiceApp.exception.CustomedHandler;
+import com.c1331tjava.ServiceApp.model.ImagesR;
 import com.c1331tjava.ServiceApp.model.Request;
 import com.c1331tjava.ServiceApp.model.UserEntity;
+import com.c1331tjava.ServiceApp.model.enums.ZonesNames;
 import com.c1331tjava.ServiceApp.service.RequestService;
 import com.c1331tjava.ServiceApp.service.UserEntityService;
+import com.c1331tjava.ServiceApp.service.ZoneService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Class to handle Client side REST requests of Request.class
@@ -31,6 +40,7 @@ public class RequestClientController {
     RequestService requestService;
     SecurityConfig securityConfig;
     UserEntityService userEntityService;
+    ZoneService zoneService;
     @Autowired
     ModelMapper modelMapper;
 
@@ -60,9 +70,44 @@ public class RequestClientController {
         try {
             RequestPaged = this.requestService.findByClientAndActiveTrue(currentUserEntity, pageable);
         } catch (Exception e) {
-            throw new CustomedHandler("Error accessing Request database");
+            throw new CustomedHandler("Error accessing request database");
         }
         return new RequestListPagedDTO(RequestPaged);
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<?> save(@Valid @RequestBody RequestSaveDTO requestSaveDTO){
+
+        UserEntity currentClient = this.userEntityService.
+                findByEmail(securityConfig.getUserNameFromToken()).get();
+
+        Request request = modelMapper.map(requestSaveDTO, Request.class);
+
+        request.setClient(currentClient);
+        request.setDate(LocalDate.now());
+        request.setZone(zoneService.findByName(ZonesNames.valueOf(requestSaveDTO.getZoneDTO())));
+
+        if (!requestSaveDTO.getImagesDTO().isEmpty()) {
+            Set<ImagesR> images = new HashSet<>();
+            requestSaveDTO.getImagesDTO().stream().forEach(a -> images.add(new ImagesR(a)));
+            request.setImages(images);
+        }
+
+
+        this.requestService.save(request);
+
+        return null;
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = error.getObjectName();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 }
