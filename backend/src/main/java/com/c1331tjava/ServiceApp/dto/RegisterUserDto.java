@@ -1,6 +1,8 @@
 package com.c1331tjava.ServiceApp.dto;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,21 +20,21 @@ import java.util.List;
 public class RegisterUserDto {
 
 
-    @NotNull
+    @NotNull(message = "Name must not be null")
     private String userName;
-    @NotNull
+    @NotNull(message = "Lastname must not be null")
     private String userLastname;
-    @NotNull
+    @NotNull(message = "Password must not be null")
     private String password;
-    @NotNull
+    @NotNull(message = "Email must not be null")
     private String email;
-    @NotNull
+    @NotNull(message = "Birthdate must not be null")
     private Date birthDate;
-    @NotNull
+    @NotNull(message = "Te must not be null")
     private String te;
     @Nullable
-    private List<String> areas;
-    @NotNull
-    private List<String> roles;
+    private List<Long> areas;
+    @NotEmpty(message = "The user must have at least 1 role")
+    private List<Long> roles;
 }
 
