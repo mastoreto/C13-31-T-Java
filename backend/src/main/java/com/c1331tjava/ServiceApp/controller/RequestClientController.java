@@ -27,6 +27,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -75,35 +76,60 @@ public class RequestClientController {
         return new RequestListPagedDTO(RequestPaged);
     }
 
+
+    /**
+     * Endpoint to add a new request. Extracts user from token.
+     *
+     * @param requestSaveDTO The DTO containing basic data of request
+     * @return ResponseEntity with a success message in case of successful creation, or an error message if creation fails.
+     */
+    @Operation(summary = "Persist a new request of the authenticated client",
+            description = "<p>Only authorized to Client users.</p>" +
+                    "<p>Require the basic request info</p>" +
+                    "<p>The Date and client are automatic set")
+
     @PostMapping("/new")
     public ResponseEntity<?> save(@Valid @RequestBody RequestSaveDTO requestSaveDTO){
 
-        UserEntity currentClient = this.userEntityService.
-                findByEmail(securityConfig.getUserNameFromToken()).get();
+        UserEntity currentClient = null;
+        try {
+            currentClient = this.userEntityService.
+                    findByEmail(securityConfig.getUserNameFromToken()).get();
+        } catch (Exception e) {
+            throw new RuntimeException("Error accessing user table");
+        }
 
         Request request = modelMapper.map(requestSaveDTO, Request.class);
 
+        // Sets the not auto mapped parameters
         request.setClient(currentClient);
-        request.setDate(LocalDate.now());
-        request.setZone(zoneService.findByName(ZonesNames.valueOf(requestSaveDTO.getZoneDTO())));
-
+        request.setDate(LocalDateTime.now());
+        try {
+            request.setZone(zoneService.findByName(ZonesNames.valueOf(requestSaveDTO.getZoneDTO())));
+        } catch (IllegalArgumentException e) {
+            throw new CustomedHandler("Error accessing zones table");
+        }
+        request.setActive(true);
+        request.setEnded(false);
         if (!requestSaveDTO.getImagesDTO().isEmpty()) {
             Set<ImagesR> images = new HashSet<>();
             requestSaveDTO.getImagesDTO().stream().forEach(a -> images.add(new ImagesR(a)));
             request.setImages(images);
         }
-
-
-        this.requestService.save(request);
-
-        return null;
+        try {
+            this.requestService.save(request);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error persisting request");
+        }
+        return new ResponseEntity<>("Request created suscesfully", HttpStatus.CREATED);
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = error.getObjectName();
+            String fieldName = "Bad Request";
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });

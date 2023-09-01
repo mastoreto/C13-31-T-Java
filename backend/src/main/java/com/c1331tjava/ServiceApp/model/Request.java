@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -24,7 +27,7 @@ public class Request {
     private UserEntity client;
 
     @Column
-    private LocalDate date;
+    private LocalDateTime date;
 
     @ManyToOne
     private Zone zone;
