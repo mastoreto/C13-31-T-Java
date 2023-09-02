@@ -15,9 +15,9 @@ Bienvenido al repositorio del proyecto de Contratación de Servicios en Platafor
 
 ## Tecnologías Utilizadas
 
-- Frontend: HTML, CSS, JavaScript (Framework a elegir, como React, Vue.js, etc.).
-- Backend: (Tecnología a elegir, como Node.js, Python, Ruby on Rails, etc.).
-- Base de Datos: (Base de datos a elegir, como MySQL, PostgreSQL, MongoDB, etc.).
+- Frontend: NextJS (ReactJS) - NextUI - TailwindCSS - TypeScript
+- Backend: Java (SpringBoot)
+- Base de Datos: MySQL
 - Otras herramientas y bibliotecas según sea necesario.
 
 ## Instalación y Configuración
@@ -43,10 +43,11 @@ Bienvenido al repositorio del proyecto de Contratación de Servicios en Platafor
 
 ## Equipo
 
-- Angeles Rodriguez Ilan Nestor - Frontend
+- Santiago Rodriguez - Frontend
 - Gaspar Jose - Frontend
-- Juan Emilio - Rol
-- Juan Cruz - Rol
+
+- Juan Emilio - Backend
+- Juan Cruz - Backend
 
 ## Licencia
 
