@@ -1,16 +1,95 @@
-import useSWR from 'swr';
+import { useState } from 'react';
+import { mutate } from 'swr';
+import httpClient from '@libs/httpClient';
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const useApi = (auth: boolean) => {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-const useApi = (endpoint: string) => {
-  let api = process.env.API_URL+endpoint;
-  const { data, error, mutate } = useSWR("https://findatrader-jebius.koyeb.app/api/v1"+endpoint, fetcher);
+  let options = {};
+  const API = process.env.API_URL;
+
+  if (auth) {
+    options = {
+      "Content-Type": "application/json",
+      "accept": "*/*",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`
+    };
+  } else {
+    options = {
+      "Content-Type": "application/json",
+      "accept": "*/*"
+    };
+  }
+
+
+  const getData = async (endpoint: string, id?: string) => {
+
+
+    if (!endpoint) {
+      throw new Error('Endpoint is required');
+    }
+
+    try {
+
+      setIsLoading(true);
+
+      let getEndpoint = id !== undefined ? `${endpoint}/${id}` : endpoint;
+  
+      const res = await httpClient(`${getEndpoint}`, { method: "GET", headers: options });
+
+      if (res.status !== 200) {
+        setError(res.statusText);
+      }
+
+      if (res.status === 200) {
+        setIsLoading(false);
+        setData(res.data);
+      }
+
+      return data;
+
+    } catch (error) {
+      setIsLoading(false);
+      setError(error);
+      throw new Error(error as any);
+    }
+  }
+
+  const mutationApi = async (endpoint: string, method: string, values: any) => {
+
+    if (!endpoint) {
+      throw new Error('Endpoint is required');
+    }
+
+    try {
+      console.log(data);
+      const res = method === 'POST' ? await httpClient.post(`${endpoint}`,JSON.stringify(values), { headers: options}) : await httpClient.put(`${endpoint}`, JSON.stringify(values), {headers: options} );
+
+      if (res.status !== 200) {
+        setError(res.statusText);
+      }
+
+      if (res.status === 200) {
+        setIsLoading(false);
+        mutate(endpoint, res.data, false);
+        return res.data;
+      }
+
+    } catch (error) {
+      setIsLoading(false);
+      setError(error);
+      //throw new Error(error as any);
+    }
+  }
 
   return {
     data,
     error,
-    isLoading: !error && !data,
-    mutate
+    isLoading,
+    mutationApi,
+    getData
   };
 };
 
