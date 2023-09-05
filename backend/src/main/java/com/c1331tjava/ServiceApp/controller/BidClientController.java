@@ -73,7 +73,7 @@ public class BidClientController {
     @PostMapping("/select/{id}")
     public ResponseEntity<?> selectBid(@PathVariable Long id){
 
-        UserEntity currentUser = userEntityService.getAuthenticatedUser();
+        UserEntity currentUser = operationsService.getAuthenticatedUser();
 
         Bid currentBid=null;
         if (bidService.findById(id).isPresent()) {

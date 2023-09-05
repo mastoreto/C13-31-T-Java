@@ -15,8 +15,6 @@ public class UserEntityService {
 
     I_UserRepository userRepository;
 
-    SecurityConfig securityConfig;
-
     public Optional<UserEntity> findByEmail(String email){
 
             return userRepository.findByEmail(email);
@@ -26,13 +24,6 @@ public class UserEntityService {
 
         return userRepository.findByEmailAndActiveTrue(email);
 
-    }
-
-    public UserEntity getAuthenticatedUser(){
-        Optional<UserEntity> optU = userRepository.findByEmail(securityConfig.getUserNameFromToken());
-        if (optU.isPresent()){
-            return optU.get();
-        } else throw new CustomedHandler("Error acquiring authenticated user");
     }
 
     public void save(UserEntity userEntity){

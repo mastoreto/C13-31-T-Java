@@ -43,4 +43,7 @@ public class RequestService {
         }
 
     }
+    public void save(Request request){
+        this.requestRepository.save(request);
+    }
 }

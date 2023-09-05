@@ -37,6 +37,9 @@ public class Work {
     @OneToOne (fetch = FetchType.EAGER)
     private Bid bid;
 
+    @OneToOne (fetch = FetchType.EAGER)
+    private Request request;
+
     @OneToMany (mappedBy = "work")
     private Set<ImagesW> images;
 
