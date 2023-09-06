@@ -3,6 +3,7 @@ import NextAuth from 'next-auth/next';
 import { DefaultSession, type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import httpClient from '@libs/httpClient';
+import { use } from 'react';
 
 declare module 'next-auth' {
     export interface Session extends DefaultSession {
@@ -20,7 +21,7 @@ declare module 'next-auth' {
         userName: string;
         userLastname: string;
         birthDate: string;
-        email: number;
+        email: string;
         areas: number[];
         roles: number[];
     }
@@ -30,21 +31,34 @@ export default NextAuth({
     debug: true,
     providers: [
         CredentialsProvider({
-            name: 'Credentials',
+            name: 'CustomCredentials',
             credentials: {
                 email: { label: 'Email', type: 'text', placeholder: 'pepe@gmail.com' },
-                password: { label: 'Password', type: 'password' },
+                password: { label: 'Password', type: 'text' },
             },
             authorize: async (credentials) => {
                 try {
                     const response = await httpClient.post('/auth/login', credentials);
 
-                    if (response.status === 200) {
-                        const token = response.data.token;
-                        return token;
+
+                    const user = {
+                        accessToken: response.data.token,
+                        user: {
+                            userName: response.data.user.userName,
+                            userLastname: response.data.user.userLastname,
+                            roles: response.data.user.roles,
+                        }
+
+                    };
+
+                    if (user) {
+                        return user;
+                    } else {
+                        return null;
                     }
+
                 } catch (error) {
-                    return Promise.resolve(null);
+                    return null;
                 }
             },
         }),
