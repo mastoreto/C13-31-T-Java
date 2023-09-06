@@ -40,15 +40,13 @@ export default NextAuth({
                 try {
                     const response = await httpClient.post('/auth/login', credentials);
 
-
                     const user = {
                         accessToken: response.data.token,
                         user: {
                             userName: response.data.user.userName,
                             userLastname: response.data.user.userLastname,
                             roles: response.data.user.roles,
-                        }
-
+                        },
                     };
 
                     if (user) {
@@ -56,7 +54,6 @@ export default NextAuth({
                     } else {
                         return null;
                     }
-
                 } catch (error) {
                     return null;
                 }
