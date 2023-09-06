@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import Nav from './Nav';
 
 const Header: React.FC = () => {
-  return (
-    <header>
-        <Nav />
-    </header>
-  )
-}
+    return (
+        <header>
+            <Nav />
+        </header>
+    );
+};
 
-export default Header
+export default Header;

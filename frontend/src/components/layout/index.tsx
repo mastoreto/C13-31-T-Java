@@ -6,18 +6,16 @@ interface LayoutProps {
     title: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({children, title}) => {
+const Layout: React.FC<LayoutProps> = ({ children, title }) => {
     return (
         <>
-        <Head>
-            <title>FaT | {title}</title>
-            <meta name="description" content="ACME" />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <Header />
-        <main className='flex h-full w-full p-5'>
-            {children}
-        </main>
+            <Head>
+                <title>FaT | {title}</title>
+                <meta name="description" content="ACME" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Header />
+            <main className="flex h-full w-full p-5 bg-white">{children}</main>
         </>
     );
 };

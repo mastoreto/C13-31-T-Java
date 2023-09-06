@@ -5,7 +5,7 @@ import { Button, Card, CardHeader, CardBody, Image, Divider } from '@nextui-org/
 import Layout from '@components/layout';
 const user = () => {
     return (
-        <Layout title='Perfil'>
+        <Layout title="Perfil">
             <div className="flex items-center space-x-4 text-small">
                 <Card
                     className="py-4 w-1/5 
