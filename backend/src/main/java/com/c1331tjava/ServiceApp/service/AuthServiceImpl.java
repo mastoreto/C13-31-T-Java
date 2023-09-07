@@ -1,12 +1,11 @@
 package com.c1331tjava.ServiceApp.service;
 
 import com.c1331tjava.ServiceApp.dto.RegisterUserDto;
+import com.c1331tjava.ServiceApp.exception.CustomedHandler;
 import com.c1331tjava.ServiceApp.exception.UserAlreadyExistException;
 import com.c1331tjava.ServiceApp.model.Area;
 import com.c1331tjava.ServiceApp.model.Role;
 import com.c1331tjava.ServiceApp.model.UserEntity;
-import com.c1331tjava.ServiceApp.model.enums.AreasNames;
-import com.c1331tjava.ServiceApp.model.enums.RolesNames;
 import com.c1331tjava.ServiceApp.repository.I_UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,25 +48,43 @@ public class AuthServiceImpl implements I_UserService {
         if (userRepository.findByEmail(userEntity.getEmail()).isPresent()){
             throw new UserAlreadyExistException("Este Usuario ya existe");
         }else {
-            userRepository.save(userEntity);
+            try {
+                userRepository.save(userEntity);
+            } catch (Exception e) {
+                throw new CustomedHandler("Error saving user on database");
+            }
         }
         return user;
     }
+
+    @Override
+    public Optional<UserEntity> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     private Random random = new Random();
-    private List<Role> setRole(List<String> roles) {
+    private List<Role> setRole(List<Long> roles) {
         List<Role> aux = new ArrayList<>();
             for (int i=0;i<roles.size();i++){
-                aux.add(this.roleService.findByName(RolesNames.valueOf(roles.get(i))));
+                try {
+                    aux.add(this.roleService.findById(roles.get(i)));
+                } catch (Exception e) {
+                    throw new CustomedHandler("Error adding role to user");
+                }
             }
         return aux;
     }
     private long generateRandomId() {
         return random.nextLong();
     }
-    private List<Area> setArea(List<String> areas) {
+    private List<Area> setArea(List<Long> areas) {
         List<Area> aux = new ArrayList<>();
         for (int i=0;i<areas.size();i++){
-            aux.add(this.areaService.findByName(AreasNames.valueOf(areas.get(i))));
+            try {
+                aux.add(this.areaService.findById(areas.get(i)));
+            } catch (Exception e) {
+                throw new CustomedHandler("Error adding area to user");
+            }
         }
         return aux;
     }

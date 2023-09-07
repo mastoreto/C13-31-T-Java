@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * A Data Transfer Object (DTO) representing the information needed to register a new user.
+ * A Data Transfer Object (DTO) representing the information needed to modify client profile.
  */
 @Data
 @AllArgsConstructor

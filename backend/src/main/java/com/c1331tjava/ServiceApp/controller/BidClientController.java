@@ -70,12 +70,19 @@ public class BidClientController {
         return modelMapper.map(currentBid, BidDTO.class);
     }
 
+    /**
+     * Endpoint used when a client select one provider from the list of candidates.
+     * It creates a new entry on Work table with the details of the work to do.
+     *
+     * @param id Represents the id of the bid to select
+     * @return 200 Response in case of successful creation or exception if fails.
+     */
     @PostMapping("/select/{id}")
     public ResponseEntity<?> selectBid(@PathVariable Long id){
 
         UserEntity currentUser = operationsService.getAuthenticatedUser();
 
-        Bid currentBid=null;
+        Bid currentBid;
         if (bidService.findById(id).isPresent()) {
             currentBid = bidService.findById(id).get();
         } else {

@@ -29,16 +29,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 /**
  * Esta clase implementa pruebas unitarias para el controlador de autenticación {@link AuthController}.
  * Utiliza el framework Spring Boot y la biblioteca MockMvc para simular solicitudes HTTP.
@@ -72,9 +68,9 @@ class AuthControllerTest {
         loginUserDto.setEmail("sebastian@gmail.com");
         loginUserDto.setPassword("sebas10capo");
     }
-    private List<String> createRoles() {
-        String roleA = "Provider";
-        return new ArrayList<>(List.of(roleA));
+    private List<Long> createRoles() {
+        Long role1= 2L;
+        return new ArrayList<>(List.of(role1));
     }
     private List<Area> createAreas(){
         Area area1= new Area(1l,AreasNames.Masonry);

@@ -1,5 +1,6 @@
 package com.c1331tjava.ServiceApp.service;
 
+import com.c1331tjava.ServiceApp.exception.CustomedHandler;
 import com.c1331tjava.ServiceApp.model.UserEntity;
 import com.c1331tjava.ServiceApp.repository.I_UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() ->
-                new UsernameNotFoundException("Usuario no encontrado: " + email));
+        UserEntity userEntity = null;
+        try {
+            userEntity = userRepository.findByEmail(email).orElseThrow(() ->
+                    new UsernameNotFoundException("Usuario no encontrado: " + email));
+        } catch (UsernameNotFoundException e) {
+            throw new CustomedHandler("Error accessing user database");
+        }
 
         Collection<? extends GrantedAuthority> authorities = userEntity.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().name()))
