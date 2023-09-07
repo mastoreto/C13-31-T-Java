@@ -106,10 +106,9 @@ const SignUp: NextPage = () => {
             <section className="w-full h-screen">
                 <article className="flex justify-center items-center w-full h-full">
                     <div>
-                    <div className='flex flex-row justify-between items-center'>
-                        <h1 className={`${poppins.className}`}>Registrarse</h1>
-                        <Image src={Logo} alt="fat logo" width={250} />
-                        
+                        <div className="flex flex-row justify-between items-center">
+                            <h1 className={`${poppins.className}`}>Registrarse</h1>
+                            <Image src={Logo} alt="fat logo" width={250} />
                         </div>
                         <form
                             className="flex flex-col justify-between items-center p-5 w-[25rem] h-[40rem]"

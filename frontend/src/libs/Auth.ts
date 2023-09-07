@@ -1,11 +1,6 @@
+import { type GetServerSidePropsContext } from 'next';
 
-import { type GetServerSidePropsContext } from "next";
-
-import {
-    getServerSession,
-    type NextAuthOptions,
-    type DefaultSession
-} from "next-auth";
+import { getServerSession, type NextAuthOptions, type DefaultSession } from 'next-auth';
 
 import CredentialsProvider from 'next-auth/providers/credentials';
 import httpClient from '@libs/httpClient';
@@ -55,7 +50,7 @@ export const authOptions: NextAuthOptions = {
         updateAge: 24 * 60 * 60, // 24 hours
     },
     callbacks: {
-        async jwt({ token, user, trigger }) {
+        async jwt({ token, user }) {
             const data = user;
 
             if (user) {
@@ -72,10 +67,9 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
 };
 
-
 export const getServerAuthSession = (ctx: {
-    req: GetServerSidePropsContext["req"];
-    res: GetServerSidePropsContext["res"];
+    req: GetServerSidePropsContext['req'];
+    res: GetServerSidePropsContext['res'];
 }) => {
     return getServerSession(ctx.req, ctx.res, authOptions);
 };
