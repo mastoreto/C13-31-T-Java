@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { type NextPage } from 'next';
 import Layout from '@components/layout';
 import TaskCard from '@components/TaskCard';

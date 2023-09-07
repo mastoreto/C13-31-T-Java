@@ -11,22 +11,19 @@ import { signIn, useSession } from 'next-auth/react';
 import { Poppins } from 'next/font/google';
 import { Input, Checkbox, Button } from '@nextui-org/react';
 
-
 import Alert from '@components/Alert';
 import Logo from '../../../assets/images/findatrader.png';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
 
 const SignIn: NextPage = () => {
-
     const router = useRouter();
 
     const { data: session } = useSession();
 
     useEffect(() => {
-        if (session) router.push("/provider/tasks");
+        if (session) router.push('/provider/tasks');
     }, [session]);
-
 
     const formik = useFormik({
         initialValues: {
@@ -60,10 +57,9 @@ const SignIn: NextPage = () => {
             <section className="w-full h-screen">
                 <article className="flex justify-center items-center w-full h-full">
                     <div>
-                        <div className='flex flex-row justify-between items-center'>
+                        <div className="flex flex-row justify-between items-center">
                             <h1 className={`${poppins.className}`}>Inicia sesion</h1>
                             <Image src={Logo} alt="fat logo" width={250} />
-
                         </div>
                         <form
                             className="flex flex-col justify-between items-center p-5 w-[25rem] h-[20rem]"

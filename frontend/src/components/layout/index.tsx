@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useSession } from 'next-auth/react';
@@ -12,14 +12,13 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, title }) => {
-
     const { status } = useSession();
 
     const router = useRouter();
 
     useEffect(() => {
         status === 'unauthenticated' && router.push('/auth/signin');
-    }, [status])
+    }, [status]);
 
     return (
         <>
