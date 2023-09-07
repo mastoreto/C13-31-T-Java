@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth/next';
 
-import { DefaultSession, type NextAuthOptions } from 'next-auth';
+import { DefaultSession, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import httpClient from '@libs/httpClient';
 import { use } from 'react';
@@ -10,19 +10,14 @@ declare module 'next-auth' {
         token: string;
         user: {
             userName: string;
-            userLastname: string;
-            email: string;
-            roles?: number[];
-            areas?: number[];
+            lastName: string;
+            roles: string[];
         } & DefaultSession['user'];
     }
 
     interface User {
         userName: string;
-        userLastname: string;
-        birthDate: string;
-        email: string;
-        areas: number[];
+        lastName: string;
         roles: number[];
     }
 }
@@ -38,24 +33,13 @@ export default NextAuth({
             },
             authorize: async (credentials) => {
                 try {
-                    const response = await httpClient.post('/auth/login', credentials);
+                    const res = await httpClient.post('/auth/login', credentials);
 
-                    const user = {
-                        accessToken: response.data.token,
-                        user: {
-                            userName: response.data.user.userName,
-                            userLastname: response.data.user.userLastname,
-                            roles: response.data.user.roles,
-                        },
-                    };
+                    const user = await res.data;
 
-                    if (user) {
-                        return user;
-                    } else {
-                        return null;
-                    }
+                    return res.status === 200 && user && Promise.resolve({ user });
                 } catch (error) {
-                    return null;
+                    return Promise.resolve(null);
                 }
             },
         }),
@@ -66,17 +50,19 @@ export default NextAuth({
         updateAge: 24 * 60 * 60, // 24 hours
     },
     callbacks: {
-        async jwt({ token, user, account }) {
-            if (account && user) {
-                return {
-                    ...token,
-                };
+        async jwt({ token, user, account, profile }) {
+            const data = user;
+
+            if (user) {
+                token.jwt = data.user.token;
+
+                token.user = data.user.user;
             }
 
             return token;
         },
-        async session({ session, token }) {
-            return session;
+        async session({ session, token, user }) {
+            return { ...session, token, user };
         },
     },
     pages: {
