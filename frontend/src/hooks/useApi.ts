@@ -4,11 +4,10 @@ import httpClient from '@libs/httpClient';
 
 const useApi = (auth: boolean) => {
     const [data, setData] = useState(null);
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     let options = {};
-    const API = process.env.API_URL;
 
     if (auth) {
         options = {
@@ -31,7 +30,7 @@ const useApi = (auth: boolean) => {
         try {
             setIsLoading(true);
 
-            let getEndpoint = id !== undefined ? `${endpoint}/${id}` : endpoint;
+            const getEndpoint = id !== undefined ? `${endpoint}/${id}` : endpoint;
 
             const res = await httpClient(`${getEndpoint}`, { method: 'GET', headers: options });
 
@@ -48,7 +47,7 @@ const useApi = (auth: boolean) => {
         } catch (error) {
             setIsLoading(false);
             setError(error);
-            throw new Error(error as any);
+            throw new Error(error);
         }
     };
 
@@ -76,7 +75,6 @@ const useApi = (auth: boolean) => {
         } catch (error) {
             setIsLoading(false);
             setError(error);
-            //throw new Error(error as any);
         }
     };
 

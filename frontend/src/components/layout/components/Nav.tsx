@@ -6,7 +6,6 @@ import Logo from '../../../assets/images/FaT100.svg';
 import { Poppins } from 'next/font/google';
 import User from './User';
 import { useSession } from 'next-auth/react';
-import { getStorageUser } from '@libs/getStorage';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
 

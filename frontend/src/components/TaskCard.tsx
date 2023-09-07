@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Button } from '@nextui-org/react';
+import { Card, CardHeader, CardFooter, Button } from '@nextui-org/react';
 import Image from 'next/image';
 import ImageC from '../assets/images/card-example-6.jpeg';
 

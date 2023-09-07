@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useSession } from 'next-auth/react';
 import Header from './components/Header';
-import { isAuthStorage } from '@libs/getStorage';
 import { useRouter } from 'next/router';
 
 interface LayoutProps {
@@ -18,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
 
     useEffect(() => {
         status === 'unauthenticated' && router.push('/auth/signin');
-    }, [status]);
+    }, [status, router]);
 
     return (
         <>
