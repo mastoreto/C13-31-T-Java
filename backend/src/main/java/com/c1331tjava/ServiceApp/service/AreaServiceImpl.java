@@ -18,6 +18,10 @@ public class AreaServiceImpl implements I_AreaService {
         return areaRepository.findByName(name);
     }
 
+    public Area findById(Long id){
+        return areaRepository.findById(id).get();
+    }
+
     public List<Area> findAll(){
         return this.areaRepository.findAll();
     }
