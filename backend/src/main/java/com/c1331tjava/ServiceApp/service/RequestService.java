@@ -27,11 +27,7 @@ public class RequestService {
      */
     public Page<Request> findByClientAndActiveTrue(UserEntity userEntity, Pageable pageable){
 
-//        try {
             return this.requestRepository.findByClientAndActiveTrue(userEntity, pageable);
-//        } catch (Exception e) {
-//            throw new CustomedHandler("Error accessing database");
-//        }
 
     }
 
@@ -43,4 +39,9 @@ public class RequestService {
         }
 
     }
+
+    public void save(Request request){
+        this.requestRepository.save(request);
+    }
+
 }
