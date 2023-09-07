@@ -56,6 +56,12 @@ public class AuthServiceImpl implements I_UserService {
         }
         return user;
     }
+
+    @Override
+    public Optional<UserEntity> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     private Random random = new Random();
     private List<Role> setRole(List<Long> roles) {
         List<Role> aux = new ArrayList<>();
