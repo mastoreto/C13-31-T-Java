@@ -34,13 +34,13 @@ public class Work {
     @Column
     private LocalDateTime endDate;
 
-    @OneToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
     private Bid bid;
 
-    @OneToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
     private Request request;
 
-    @OneToMany (mappedBy = "work")
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ImagesW> images;
 
     @Column (columnDefinition = "boolean default false")

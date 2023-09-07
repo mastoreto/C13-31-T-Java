@@ -75,8 +75,6 @@ public class RequestClientController {
         }
         return new RequestListPagedDTO(RequestPaged);
     }
-
-
     /**
      * Endpoint to add a new request. Extracts user from token.
      *

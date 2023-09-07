@@ -2,10 +2,7 @@ package com.c1331tjava.ServiceApp.service;
 
 import com.c1331tjava.ServiceApp.config.SecurityConfig;
 import com.c1331tjava.ServiceApp.exception.CustomedHandler;
-import com.c1331tjava.ServiceApp.model.Bid;
-import com.c1331tjava.ServiceApp.model.Request;
-import com.c1331tjava.ServiceApp.model.UserEntity;
-import com.c1331tjava.ServiceApp.model.Work;
+import com.c1331tjava.ServiceApp.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -20,26 +17,43 @@ public class OperationsService {
     RequestService requestService;
     UserEntityService userEntityService;
     SecurityConfig securityConfig;
+    NotificationService notificationService;
 
-    public void selectBidAndCreateNewWork(Bid bid){
+    public void selectBidAndCreateNewWork(Request request, Bid bid){
 
         //First create new Work using data from the request
-        Work newWork = new Work();
-        Request currentRequest = bid.getRequest();
-        newWork.setClient(currentRequest.getClient());
-        newWork.setProvider(bid.getProvider());
-        newWork.setStarDate(LocalDateTime.now());
-        newWork.setBid(bid);
-        newWork.setRequest(currentRequest);
-        newWork.setActive(true);
-        newWork.setEnded(false);
-        workService.save(newWork);
+        Work newWork = new Work(
+                null,
+                request.getClient(),
+                bid.getProvider(),
+                LocalDateTime.now(),
+                null,
+                bid,
+                request,
+                null,
+                false,
+                true
+                );
+        try {
+            workService.save(newWork);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error persisting new work");
+        }
 
         //Second sets the request as ended
-        currentRequest.setEnded(true);
-        requestService.save(currentRequest);
-
-
+        request.setEnded(true);
+        try {
+            requestService.save(request);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error updating request");
+        }
+        //Third: add notification to selected provider.
+        notificationService.save(new Notification(
+                null,
+                "Han aceptado una de tus propuestas",
+                LocalDateTime.now(),
+                false)
+        );
     }
     public UserEntity getAuthenticatedUser(){
         Optional<UserEntity> optU = userEntityService.findByEmail(securityConfig.getUserNameFromToken());

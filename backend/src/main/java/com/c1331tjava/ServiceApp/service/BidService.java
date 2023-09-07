@@ -1,5 +1,6 @@
 package com.c1331tjava.ServiceApp.service;
 
+import com.c1331tjava.ServiceApp.exception.CustomedHandler;
 import com.c1331tjava.ServiceApp.model.Bid;
 import com.c1331tjava.ServiceApp.model.Request;
 import com.c1331tjava.ServiceApp.model.UserEntity;
@@ -16,6 +17,11 @@ public class BidService {
     BidRepository bidRepository;
 
     public Optional<Bid> findById(Long id){
-        return this.bidRepository.findById(id);
+
+        try {
+            return this.bidRepository.findById(id);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error fetching data from Bid database");
+        }
     }
 }

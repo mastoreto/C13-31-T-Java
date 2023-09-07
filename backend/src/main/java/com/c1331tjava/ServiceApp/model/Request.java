@@ -39,7 +39,7 @@ public class Request {
     private Set<ImagesR> images;
 
     @OneToMany (fetch = FetchType.EAGER)
-    private Set<UserEntity> providers;
+    private Set<Bid> bids;
 
     @Column (length = 200)
     private String comments;
