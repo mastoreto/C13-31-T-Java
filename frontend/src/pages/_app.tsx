@@ -1,11 +1,15 @@
 'use client';
+/* eslint-disable react/prop-types */
 import '@styles/globals.css';
 import { type Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import type { AppType } from 'next/app';
 import { NextUIProvider } from '@nextui-org/react';
 
-const App: AppType<{ session: Session | null }> = ({ Component, pageProps }) => {
+// Agrega PropTypes o TypeScript para validar las props
+
+
+const App: React.FC<AppType<{ session: Session | null }>> = ({ Component, pageProps }) => {
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60} refetchOnWindowFocus={true}>
             <NextUIProvider>
