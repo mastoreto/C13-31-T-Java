@@ -1,4 +1,3 @@
-/* eslint-disabled react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { type NextPage } from 'next';
 import Image from 'next/image';
