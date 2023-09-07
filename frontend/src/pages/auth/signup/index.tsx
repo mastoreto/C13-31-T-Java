@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { type NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +10,7 @@ import useApi from '@hooks/useApi';
 import { Input, Checkbox, Button, Select, SelectItem } from '@nextui-org/react';
 import Alert from '@components/Alert';
 import Head from 'next/head';
+import Logo from '../../../assets/images/findatrader.png';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
 
@@ -104,7 +106,11 @@ const SignUp: NextPage = () => {
             <section className="w-full h-screen">
                 <article className="flex justify-center items-center w-full h-full">
                     <div>
+                    <div className='flex flex-row justify-between items-center'>
                         <h1 className={`${poppins.className}`}>Registrarse</h1>
+                        <Image src={Logo} alt="fat logo" width={250} />
+                        
+                        </div>
                         <form
                             className="flex flex-col justify-between items-center p-5 w-[25rem] h-[40rem]"
                             onSubmit={(e) => formik.handleSubmit(e)}

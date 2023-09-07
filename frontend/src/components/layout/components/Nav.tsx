@@ -1,14 +1,18 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from '@nextui-org/react';
 import Logo from '../../../assets/images/FaT100.svg';
 import { Poppins } from 'next/font/google';
 import User from './User';
+import { useSession } from 'next-auth/react';
+import { getStorageUser } from '@libs/getStorage';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
 
 const Nav: React.FC = () => {
-    const login = true;
+
+    const { data: session } = useSession();
 
     return (
         <Navbar className="bg-white">
@@ -17,7 +21,7 @@ const Nav: React.FC = () => {
                 <p className={`${poppins} font-bold text-inherit`}>FindATrader</p>
             </NavbarBrand>
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                <NavbarItem>
+                <NavbarItem className='hidden'>
                     <Link color="foreground" href="/">
                         Inicio
                     </Link>
@@ -40,7 +44,7 @@ const Nav: React.FC = () => {
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
-                {login ? (
+                {session ? (
                     <User />
                 ) : (
                     <>

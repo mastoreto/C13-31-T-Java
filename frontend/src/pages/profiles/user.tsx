@@ -1,4 +1,4 @@
-'use client';
+"use client"
 import React from 'react';
 import Link from 'next/link';
 import { Button, Card, CardHeader, CardBody, Image, Divider } from '@nextui-org/react';
@@ -6,7 +6,8 @@ import Layout from '@components/layout';
 const user = () => {
     return (
         <Layout title="Perfil">
-            <div className="flex items-center space-x-4 text-small">
+
+            <div className="flex items-center space-x-4 text-small mx-auto">
                 <Card
                     className="py-4 w-1/5 
                     min-h-screen 
@@ -112,6 +113,7 @@ const user = () => {
                     </CardHeader>
                 </Card>
             </div>
+
         </Layout>
     );
 };
