@@ -56,7 +56,12 @@ public class OperationsService {
         );
     }
     public UserEntity getAuthenticatedUser(){
-        Optional<UserEntity> optU = userEntityService.findByEmail(securityConfig.getUserNameFromToken());
+        Optional<UserEntity> optU = null;
+        try {
+            optU = userEntityService.findByEmail(securityConfig.getUserNameFromToken());
+        } catch (Exception e) {
+            throw new CustomedHandler("Error fetching data from user database");
+        }
         if (optU.isPresent()){
             return optU.get();
         } else throw new CustomedHandler("Error acquiring authenticated user");
