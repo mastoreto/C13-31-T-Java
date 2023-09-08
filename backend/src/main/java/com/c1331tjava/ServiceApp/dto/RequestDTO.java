@@ -14,7 +14,7 @@ public class RequestDTO {
     private Zone zone;
     private String description;
     private Set<ImagesR> images;
-    private Set<ProviderDTO> providers;
+    private Set<BidDTO> bids;
     private String comments;
     private Boolean ended;
 }

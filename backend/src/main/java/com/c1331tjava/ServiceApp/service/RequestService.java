@@ -37,11 +37,8 @@ public class RequestService {
         } catch (Exception e) {
             throw new CustomedHandler("Error accessing database");
         }
-
     }
-
     public void save(Request request){
         this.requestRepository.save(request);
     }
-
 }
