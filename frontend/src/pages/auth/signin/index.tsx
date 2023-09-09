@@ -1,25 +1,28 @@
+import { useEffect } from 'react';
 import { type NextPage } from 'next';
+import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
-import useApi from '@hooks/useApi';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { signIn, useSession } from 'next-auth/react';
-import { Poppins } from 'next/font/google';
 import { Input, Checkbox, Button } from '@nextui-org/react';
+import { Poppins } from 'next/font/google';
+
 import Alert from '@components/Alert';
-import { useEffect } from 'react';
+import Logo from '../../../assets/images/findatrader.png';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
 
 const SignIn: NextPage = () => {
-    const { mutationApi } = useApi(false);
+    const router = useRouter();
 
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     useEffect(() => {
-        console.log(session);
-    }, [session]);
+        if (session) router.push('/provider/tasks');
+    }, [session, router]);
 
     const formik = useFormik({
         initialValues: {
@@ -42,10 +45,6 @@ const SignIn: NextPage = () => {
             } catch (error) {
                 console.log(error);
             }
-
-            /*if (result?.error) {
-        console.error("Error de inicio de sesión:", result?.error);
-      }*/
         },
     });
 
@@ -57,7 +56,10 @@ const SignIn: NextPage = () => {
             <section className="w-full h-screen">
                 <article className="flex justify-center items-center w-full h-full">
                     <div>
-                        <h1 className={`${poppins.className}`}>Inicia sesion</h1>
+                        <div className="flex flex-row justify-between items-center">
+                            <h1 className={`${poppins.className}`}>Inicia sesion</h1>
+                            <Image src={Logo} alt="fat logo" width={250} />
+                        </div>
                         <form
                             className="flex flex-col justify-between items-center p-5 w-[25rem] h-[20rem]"
                             onSubmit={(e) => {

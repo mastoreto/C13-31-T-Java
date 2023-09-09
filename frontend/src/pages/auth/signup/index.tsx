@@ -1,6 +1,9 @@
 'use client';
+/* eslint-disabled react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from 'react';
 import { type NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,8 +12,22 @@ import useApi from '@hooks/useApi';
 import { Input, Checkbox, Button, Select, SelectItem } from '@nextui-org/react';
 import Alert from '@components/Alert';
 import Head from 'next/head';
+import Logo from '../../../assets/images/findatrader.png';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
+
+interface SignUp {
+    userName: string;
+    lastName: string;
+    email: string;
+    birthDate: string;
+    te: string;
+    password: string;
+    repassword?: string;
+    roles: number[] | string[];
+    areas: number[] | string[];
+    acceptTerms?: boolean;
+}
 
 const SignUp: NextPage = () => {
     const { mutationApi, getData, data: areaList, error, isLoading } = useApi(false);
@@ -19,8 +36,8 @@ const SignUp: NextPage = () => {
         getData('/area/list');
     }, []);
 
-    const handleSubmit = async (values: any) => {
-        const registrarUsuario = async (values: any) => {
+    const handleSubmit = async (values: SignUp) => {
+        const registrarUsuario = async (values: SignUp) => {
             await mutationApi('/auth/register', 'POST', values);
         };
         const { birthDate } = values;
@@ -46,14 +63,14 @@ const SignUp: NextPage = () => {
     const formik = useFormik({
         initialValues: {
             userName: '',
-            userLastname: '',
+            lastName: '',
             email: '',
             password: '',
             repassword: '',
             birthDate: '',
             te: '',
-            areas: [0],
-            roles: [0],
+            areas: [""],
+            roles: [""],
             acceptTerms: false,
         },
         validationSchema: Yup.object({
@@ -61,7 +78,7 @@ const SignUp: NextPage = () => {
                 .min(3, 'El nombre debe tener al menos 3 caracteres')
                 .max(15, 'El nombre debe tener como maximo 15 caracteres')
                 .required('El nombre es requerido'),
-            userLastname: Yup.string()
+            lastName: Yup.string()
                 .min(3, 'El apellido debe tener al menos 3 caracteres')
                 .max(15, 'El apellido debe tener como maximo 15 caracteres')
                 .required('El apellido es requerido'),
@@ -104,7 +121,10 @@ const SignUp: NextPage = () => {
             <section className="w-full h-screen">
                 <article className="flex justify-center items-center w-full h-full">
                     <div>
-                        <h1 className={`${poppins.className}`}>Registrarse</h1>
+                        <div className="flex flex-row justify-between items-center">
+                            <h1 className={`${poppins.className}`}>Registrarse</h1>
+                            <Image src={Logo} alt="fat logo" width={250} />
+                        </div>
                         <form
                             className="flex flex-col justify-between items-center p-5 w-[25rem] h-[40rem]"
                             onSubmit={(e) => formik.handleSubmit(e)}
@@ -127,17 +147,17 @@ const SignUp: NextPage = () => {
                             <Input
                                 isRequired
                                 type="text"
-                                name="userLastname"
-                                id="userLastname"
+                                name="lastName"
+                                id="lastName"
                                 onChange={(e) => formik.handleChange(e)}
                                 onBlur={(e) => formik.handleBlur(e)}
                                 label="Apellido"
                                 placeholder="Apellido"
                                 className={`${poppins.className} max-x-xs`}
-                                value={formik.values.userLastname}
+                                value={formik.values.lastName}
                             />
-                            {formik.errors.userLastname && formik.touched.userLastname && (
-                                <Alert message={formik.errors.userLastname} />
+                            {formik.errors.lastName && formik.touched.lastName && (
+                                <Alert message={formik.errors.lastName} />
                             )}
                             <Input
                                 isRequired
@@ -222,7 +242,7 @@ const SignUp: NextPage = () => {
                                         Cargando...
                                     </SelectItem>
                                 ) : (
-                                    areaList?.map((area: any) => (
+                                    areaList?.map((area: { id: number, name: string }) => (
                                         <SelectItem key={area.id} value={area.id}>
                                             {area.name}
                                         </SelectItem>
@@ -239,7 +259,7 @@ const SignUp: NextPage = () => {
                                 className={`${poppins.className} max-x-xs`}
                                 value={formik.values.roles}
                             >
-                                {roles?.map((rol: any) => (
+                                {roles?.map((rol) => (
                                     <SelectItem key={rol.id} value={rol.id}>
                                         {rol.value}
                                     </SelectItem>
