@@ -7,18 +7,26 @@ import httpClient from '@libs/httpClient';
 
 declare module 'next-auth' {
     export interface Session extends DefaultSession {
-        token: string;
-        user: {
-            userName: string;
-            lastName: string;
-            roles: string[];
+        token: {
+            jwt: string;
+            user: {
+                userName: string;
+                lastName: string;
+                roles: string[];
+            }
         } & DefaultSession['user'];
     }
 
     interface User {
-        userName: string;
-        lastName: string;
-        roles: number[];
+        user: {
+            token: string;
+            user: {
+                userName: string;
+                lastName: string;
+                roles: number[];
+            }
+        }
+
     }
 }
 

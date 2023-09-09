@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { type NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
-import useApi from '@hooks/useApi';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { signIn, useSession } from 'next-auth/react';
-import { Poppins } from 'next/font/google';
 import { Input, Checkbox, Button } from '@nextui-org/react';
+import { Poppins } from 'next/font/google';
 
 import Alert from '@components/Alert';
 import Logo from '../../../assets/images/findatrader.png';
@@ -23,7 +22,7 @@ const SignIn: NextPage = () => {
 
     useEffect(() => {
         if (session) router.push('/provider/tasks');
-    }, [session]);
+    }, [session, router]);
 
     const formik = useFormik({
         initialValues: {
