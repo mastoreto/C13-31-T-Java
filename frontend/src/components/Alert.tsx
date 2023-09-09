@@ -2,7 +2,7 @@ import React from 'react';
 import { Poppins } from 'next/font/google';
 
 interface AlertProps {
-    message: string;
+    message: string | string[];
 }
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });

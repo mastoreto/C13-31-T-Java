@@ -3,13 +3,13 @@
 import '@styles/globals.css';
 import { type Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import type { AppType } from 'next/app';
+import { AppProps } from 'next/app';
 import { NextUIProvider } from '@nextui-org/react';
 
 // Agrega PropTypes o TypeScript para validar las props
 
 
-const App: React.FC<AppType<{ session: Session | null }>> = ({ Component, pageProps }) => {
+const App: React.FC = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
     return (
         <SessionProvider session={pageProps.session} refetchInterval={5 * 60} refetchOnWindowFocus={true}>
             <NextUIProvider>
