@@ -8,6 +8,7 @@ import com.c1331tjava.ServiceApp.repository.BidRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,14 @@ public class BidService {
             return this.bidRepository.findById(id);
         } catch (Exception e) {
             throw new CustomedHandler("Error fetching data from Bid database");
+        }
+    }
+
+    public List<Bid> findAll(){
+        try {
+            return bidRepository.findAll();
+        } catch (Exception e) {
+            throw new CustomedHandler("Error fetching data from bid database");
         }
     }
 }

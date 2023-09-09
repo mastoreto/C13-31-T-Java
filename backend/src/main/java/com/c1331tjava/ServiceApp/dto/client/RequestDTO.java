@@ -1,5 +1,6 @@
-package com.c1331tjava.ServiceApp.dto;
+package com.c1331tjava.ServiceApp.dto.client;
 
+import com.c1331tjava.ServiceApp.dto.BidDTO;
 import com.c1331tjava.ServiceApp.model.*;
 import lombok.Data;
 

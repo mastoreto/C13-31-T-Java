@@ -41,6 +41,9 @@ public class Request {
     @OneToMany (fetch = FetchType.EAGER)
     private Set<Bid> bids;
 
+    @OneToMany (fetch = FetchType.EAGER)
+    private Set<UserEntity> providers;
+
     @Column (length = 200)
     private String comments;
 
