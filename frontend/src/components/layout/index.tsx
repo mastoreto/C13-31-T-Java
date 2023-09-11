@@ -16,8 +16,11 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
     const router = useRouter();
 
     useEffect(() => {
-        status === 'unauthenticated' && router.push('/auth/signin');
+
+        status === 'unauthenticated' && router.pathname !== "/" && router.push('/auth/signin');
     }, [status, router]);
+
+
 
     return (
         <>
@@ -27,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <main className="flex h-full w-full p-5 bg-white">{children}</main>
+            <main className="flex flex-col h-full w-full bg-white">{children}</main>
         </>
     );
 };

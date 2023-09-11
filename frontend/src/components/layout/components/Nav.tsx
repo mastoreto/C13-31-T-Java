@@ -6,41 +6,44 @@ import Logo from '../../../assets/images/FaT100.svg';
 import { Poppins } from 'next/font/google';
 import User from './User';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const poppins = Poppins({ weight: '400', subsets: ['latin-ext'] });
 
 const Nav: React.FC = () => {
     const { data: session } = useSession();
+    const router = useRouter();
 
     return (
         <Navbar className="bg-white">
-            <NavbarBrand>
+            {router.pathname !== '/' && <NavbarBrand>
                 <Image src={Logo} alt="FindATrader" width={50} height={50} />
                 <p className={`${poppins} font-bold text-inherit`}>FindATrader</p>
-            </NavbarBrand>
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                <NavbarItem className="hidden">
-                    <Link color="foreground" href="/">
-                        Inicio
-                    </Link>
-                </NavbarItem>
-                <NavbarItem isActive>
-                    <Link href="/provider/tasks" aria-current="page">
-                        Trabajos
-                    </Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Button
-                        href="#"
-                        as={Link}
-                        color="success"
-                        className="text-white font-bold hover:scale-105"
-                        variant="solid"
-                    >
-                        Publicar
-                    </Button>
-                </NavbarItem>
-            </NavbarContent>
+            </NavbarBrand>}
+            {session ?
+                <NavbarContent className="hidden sm:flex gap-4" justify="center">
+                    <NavbarItem className="hidden">
+                        <Link color="foreground" href="/">
+                            Inicio
+                        </Link>
+                    </NavbarItem>
+                    <NavbarItem isActive>
+                        <Link href="/provider/tasks" aria-current="page">
+                            Trabajos
+                        </Link>
+                    </NavbarItem>
+                    <NavbarItem>
+                        <Button
+                            href="#"
+                            as={Link}
+                            color="success"
+                            className="text-white font-bold hover:scale-105"
+                            variant="solid"
+                        >
+                            Publicar
+                        </Button>
+                    </NavbarItem>
+                </NavbarContent> : null}
             <NavbarContent justify="end">
                 {session ? (
                     <User />
