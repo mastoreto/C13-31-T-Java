@@ -1,4 +1,4 @@
-package com.c1331tjava.ServiceApp.controller;
+package com.c1331tjava.ServiceApp.controller.client;
 
 import com.c1331tjava.ServiceApp.config.SecurityConfig;
 import com.c1331tjava.ServiceApp.dto.BidDTO;
