@@ -1,5 +1,5 @@
 'use client';
-/* eslint-disabled react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from 'react';
 import { type NextPage } from 'next';
@@ -69,8 +69,8 @@ const SignUp: NextPage = () => {
             repassword: '',
             birthDate: '',
             te: '',
-            areas: [""],
-            roles: [""],
+            areas: [''],
+            roles: [''],
             acceptTerms: false,
         },
         validationSchema: Yup.object({
@@ -242,7 +242,7 @@ const SignUp: NextPage = () => {
                                         Cargando...
                                     </SelectItem>
                                 ) : (
-                                    areaList?.map((area: { id: number, name: string }) => (
+                                    areaList?.map((area: { id: number; name: string }) => (
                                         <SelectItem key={area.id} value={area.id}>
                                             {area.name}
                                         </SelectItem>
