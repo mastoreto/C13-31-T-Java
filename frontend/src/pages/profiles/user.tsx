@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@nextui-org/react';
 import Layout from '@components/layout/layout.profile';
+import StarsUser from '@components/StarsUser';
 
 type Usuario = {
     firstname: string;
