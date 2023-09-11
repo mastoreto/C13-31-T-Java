@@ -47,7 +47,7 @@ public class RequestProviderController {
     @Operation(summary = "Get paged list of open requests order by publication date",
             description = "<p>Only authorized to Provider users.</p>" +
                     "<p>Optional: criteria -> String with search criteria</p>")
-    @GetMapping("/list/bydate")
+    @GetMapping("/list/")
     public RequestListPagedDTO findByDescriptionAndEndedFalseOrderByDate(@ParameterObject String criteria, @ParameterObject Pageable pageable){
 
         Page<Request> requestPaged = requestService.findByDescriptionContainingAndEndedFalseOrderByDate(criteria, pageable);
@@ -57,7 +57,7 @@ public class RequestProviderController {
     @Operation(summary = "Get paged list of open requests of a specific zone, order by publication date",
             description = "<p>Only authorized to Provider users.</p>" +
                     "<p>Optional: criteria -> String with search criteria</p>")
-    @GetMapping("/list")
+    @GetMapping("/list/zone")
     public RequestListPagedDTO findByDescriptionContainingAndByZoneAndEndedFalseOrderByDate (
             @ParameterObject String criteria,
             @ParameterObject String zone,
