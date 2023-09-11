@@ -2,14 +2,12 @@ package com.c1331tjava.ServiceApp.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table (name = "imagesr")
-@AllArgsConstructor
-@Getter @Setter
+@Data
+@NoArgsConstructor
 public class ImagesR {
 
     @Id
@@ -19,7 +17,7 @@ public class ImagesR {
     @Column
     private String imageLink;
 
-    @ManyToOne
-    private Request request;
-
+    public ImagesR(String imageLink) {
+        this.imageLink = imageLink;
+    }
 }
