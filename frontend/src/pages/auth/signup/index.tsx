@@ -1,5 +1,6 @@
 'use client';
-/* eslint-disabled react-hooks/exhaustive-deps */
+/* eslint-disabled react-hooks/exhaustive-deps
+ */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from 'react';
 import { type NextPage } from 'next';
