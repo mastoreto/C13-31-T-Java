@@ -33,4 +33,12 @@ public class BidService {
             throw new CustomedHandler("Error fetching data from bid database");
         }
     }
+
+    public Bid save(Bid bid){
+        try {
+            return bidRepository.save(bid);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error persisting bid");
+        }
+    }
 }
