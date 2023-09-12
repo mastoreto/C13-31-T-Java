@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -29,7 +30,7 @@ public class Bid {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDateTime date;
 
     @Column (length = 200)
     private String comments;
