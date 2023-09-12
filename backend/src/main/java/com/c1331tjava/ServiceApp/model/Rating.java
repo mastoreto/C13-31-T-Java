@@ -24,7 +24,7 @@ public class Rating {
     private UserEntity provider;
 
     @ManyToOne
-    private Request request;
+    private Work work;
 
     @Column
     private Integer value;
