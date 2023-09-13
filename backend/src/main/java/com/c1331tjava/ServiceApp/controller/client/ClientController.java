@@ -14,7 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class to handle Client side REST requests of UserEntity.class
@@ -42,10 +46,8 @@ public class ClientController {
                     "<p>Extract query username from JWT</p>")
     @GetMapping("/details")
     public ClientDTO findByEmail(){
-
         UserEntity currentUser = operationsService.getAuthenticatedUser();
         return modelMapper.map(currentUser, ClientDTO.class);
-
     }
 
     /**
@@ -59,7 +61,6 @@ public class ClientController {
             description = "<p>Only authorized to Client users.</p>" +
                     "<p>Extract username from JWT and actualizes details with body object</p>" +
                     "<p>Is not required to send all details, only ones that wants to change")
-
     @PostMapping("/update")
     public ResponseEntity<?> updateClient(@Valid @RequestBody UpdateClientDto updateClientDto){
 
@@ -74,6 +75,19 @@ public class ClientController {
         } catch (Exception e) {
             throw new CustomedHandler("Error saving user");
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return new ResponseEntity<>("Client updated", HttpStatus.OK);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = "Bad Request";
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+
 }

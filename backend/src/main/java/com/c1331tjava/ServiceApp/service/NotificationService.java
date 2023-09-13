@@ -12,12 +12,10 @@ public class NotificationService {
 
     NotificationRepository notificationRepository;
     public void save(Notification notification){
-
         try {
             notificationRepository.save(notification);
         } catch (Exception e) {
             throw new CustomedHandler("Error persisting notification");
         }
-
     }
 }
