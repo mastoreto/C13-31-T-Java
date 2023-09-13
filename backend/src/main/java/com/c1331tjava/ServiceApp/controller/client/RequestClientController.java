@@ -89,7 +89,7 @@ public class RequestClientController {
         request.setEnded(false);
         if (!requestSaveDTO.getImagesDTO().isEmpty()) {
             Set<ImagesR> images = new HashSet<>();
-            requestSaveDTO.getImagesDTO().stream().forEach(a -> images.add(new ImagesR(a)));
+            requestSaveDTO.getImagesDTO().forEach(a -> images.add(new ImagesR(a)));
             request.setImages(images);
         }
         requestService.save(request);

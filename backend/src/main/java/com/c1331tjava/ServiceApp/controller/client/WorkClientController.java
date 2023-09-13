@@ -53,7 +53,7 @@ public class WorkClientController {
         // If DTO has images, adds it to work
         if (!workFinishDTO.getImages().isEmpty()) {
             Set<ImagesW> images = new HashSet<>();
-            workFinishDTO.getImages().stream().forEach(a -> images.add(new ImagesW(a)));
+            workFinishDTO.getImages().forEach(a -> images.add(new ImagesW(a)));
             currentWork.setImages(images);
         }
 
