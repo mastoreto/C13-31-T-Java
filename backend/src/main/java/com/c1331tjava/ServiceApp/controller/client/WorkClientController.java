@@ -12,10 +12,13 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -30,16 +33,16 @@ public class WorkClientController {
     @PostMapping("/finish/{workId}")
     public ResponseEntity<?> workFinish(@Valid @RequestBody WorkFinishDTO workFinishDTO, @PathVariable Long workId){
 
-
-        Work currentWork;
+        //First retrieves the work from database
+        Work currentWork = new Work();
         if (workService.findById(workId).isPresent()){
             currentWork = workService.findById(workId).get();
         } else {
             return new ResponseEntity<>("Error: work not found", HttpStatus.BAD_REQUEST);
         }
 
+        //Second checks that the works belongs to the authenticated user
         UserEntity currentUser = operationsService.getAuthenticatedUser();
-
         if (currentUser!=currentWork.getClient()){
             return new ResponseEntity<>("Can´t finish a work that´s not yours", HttpStatus.FORBIDDEN);
         }
@@ -66,7 +69,22 @@ public class WorkClientController {
 
         ratingService.save(currentRating);
 
+
+
         return new ResponseEntity<>("Work finished, and qualification saved", HttpStatus.CREATED);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = "Bad Request";
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+
 
 }

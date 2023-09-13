@@ -1,7 +1,6 @@
 package com.c1331tjava.ServiceApp.controller.provider;
 
 import com.c1331tjava.ServiceApp.dto.provider.RequestListPagedDTO;
-import com.c1331tjava.ServiceApp.exception.CustomedHandler;
 import com.c1331tjava.ServiceApp.model.Request;
 import com.c1331tjava.ServiceApp.model.UserEntity;
 import com.c1331tjava.ServiceApp.model.Zone;
@@ -14,9 +13,12 @@ import lombok.AllArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/provider/request")
@@ -68,6 +70,17 @@ public class RequestProviderController {
                 .findByDescriptionContainingAndZoneAndEndedFalseOrderByDate(
                         criteria,currentZone, pageable);
         return new RequestListPagedDTO(requestPaged);
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = "Bad Request";
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 
