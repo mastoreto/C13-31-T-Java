@@ -55,9 +55,9 @@ public class RequestService {
             throw new CustomedHandler("Error fetching data from request database");
         }
     }
-    public void save(Request request){
+    public Request save(Request request){
         try {
-            requestRepository.save(request);
+            return requestRepository.save(request);
         } catch (Exception e) {
             throw new CustomedHandler("Error persisting data in request database");
         }

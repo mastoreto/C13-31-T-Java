@@ -2,7 +2,6 @@ package com.c1331tjava.ServiceApp.controller.client;
 
 import com.c1331tjava.ServiceApp.dto.client.ClientDTO;
 import com.c1331tjava.ServiceApp.dto.client.UpdateClientDto;
-import com.c1331tjava.ServiceApp.exception.CustomedHandler;
 import com.c1331tjava.ServiceApp.model.UserEntity;
 import com.c1331tjava.ServiceApp.service.OperationsService;
 import com.c1331tjava.ServiceApp.service.UserEntityService;
@@ -66,15 +65,12 @@ public class ClientController {
 
         UserEntity currentUser = operationsService.getAuthenticatedUser();
 
+        if (!(updateClientDto.getImageLink()==null)){currentUser.setImageLink(updateClientDto.getImageLink());}
         if (!(updateClientDto.getUserName()==null)){currentUser.setUserName(updateClientDto.getUserName());}
         if (!(updateClientDto.getUserLastname()==null)){currentUser.setUserLastname(updateClientDto.getUserLastname());}
         if (!(updateClientDto.getPassword()==null)){currentUser.setPassword(passwordEncoder.encode(updateClientDto.getPassword()));}
         if (!(updateClientDto.getTe()==null)){currentUser.setTe(updateClientDto.getTe());}
-        try {
-            this.userEntityService.save(currentUser);
-        } catch (Exception e) {
-            throw new CustomedHandler("Error saving user");
-        }
+        userEntityService.save(currentUser);
         return new ResponseEntity<>("Client updated", HttpStatus.OK);
     }
 

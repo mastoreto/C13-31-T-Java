@@ -69,6 +69,8 @@ public class WorkClientController {
 
         ratingService.save(currentRating);
 
+
+
         return new ResponseEntity<>("Work finished, and qualification saved", HttpStatus.CREATED);
     }
 

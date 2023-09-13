@@ -11,9 +11,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class WorkService {
     WorkRepository workRepository;
-    public void save(Work work){
+    public Work save(Work work){
         try {
-            workRepository.save(work);
+            return workRepository.save(work);
         } catch (Exception e) {
             throw new CustomedHandler("Error persisting work");
         }

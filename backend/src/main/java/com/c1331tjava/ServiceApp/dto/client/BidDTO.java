@@ -1,6 +1,5 @@
-package com.c1331tjava.ServiceApp.dto;
+package com.c1331tjava.ServiceApp.dto.client;
 
-import com.c1331tjava.ServiceApp.model.UserEntity;
 import lombok.Data;
 
 import java.util.Date;

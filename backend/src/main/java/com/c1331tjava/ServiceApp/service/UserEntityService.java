@@ -29,9 +29,9 @@ public class UserEntityService {
         }
     }
 
-    public void save(UserEntity userEntity){
+    public UserEntity save(UserEntity userEntity){
         try {
-            userRepository.save(userEntity);
+            return userRepository.save(userEntity);
         } catch (Exception e) {
             throw new CustomedHandler("Error accessing user database");
         }
