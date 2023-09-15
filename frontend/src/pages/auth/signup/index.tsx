@@ -30,7 +30,7 @@ interface SignUp {
 }
 
 const SignUp: NextPage = () => {
-    const { mutationApi, getData, data: areaList, error, isLoading } = useApi(false);
+    const { mutationApi, getData, data: areaList, error, isLoading } = useApi();
 
     useEffect(() => {
         getData('/area/list');
