@@ -13,7 +13,7 @@ const Nav: React.FC = () => {
     const { data: session } = useSession();
 
     return (
-        <Navbar className="bg-white">
+        <Navbar className="bg-white g">
             <NavbarBrand>
                 <Image src={Logo} alt="FindATrader" width={50} height={50} />
                 <p className={`${poppins} font-bold text-inherit`}>FindATrader</p>
@@ -31,7 +31,7 @@ const Nav: React.FC = () => {
                 </NavbarItem>
                 <NavbarItem>
                     <Button
-                        href="#"
+                        href="/client/requests"
                         as={Link}
                         color="success"
                         className="text-white font-bold hover:scale-105"

@@ -26,7 +26,7 @@ const UserMenu: React.FC = () => {
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Actions" variant="flat">
                     <DropdownItem key="settings">
-                        <Link href="/profiles/user">Mi Perfil</Link>
+                        <Link href="/profile">Mi Perfil</Link>
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
                         Cerrar Sesión
