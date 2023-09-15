@@ -36,7 +36,7 @@ const Nav: React.FC = () => {
                     </NavbarItem>
                     <NavbarItem>
                         <Button
-                            href="#"
+                            href="/client/requests"
                             as={Link}
                             color="success"
                             className="text-white font-bold hover:scale-105"
@@ -53,11 +53,19 @@ const Nav: React.FC = () => {
                 ) : (
                     <>
                         <NavbarItem className="hidden lg:flex">
-                            <Link href="#">Login</Link>
+                            <Link href="/auth/signin" className={`${poppins.className}`}>
+                                Inicar Sesion
+                            </Link>
                         </NavbarItem>
                         <NavbarItem>
-                            <Button as={Link} color="primary" href="#" variant="flat">
-                                Sign Up
+                            <Button
+                                as={Link}
+                                color="primary"
+                                href="/auth/signup"
+                                variant="flat"
+                                className={`${poppins.className}`}
+                            >
+                                Registrarse
                             </Button>
                         </NavbarItem>
                     </>

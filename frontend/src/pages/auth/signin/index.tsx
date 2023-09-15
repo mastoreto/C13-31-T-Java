@@ -69,7 +69,9 @@ const SignIn: NextPage = () => {
                     <div>
                         <div className="flex flex-row justify-between items-center">
                             <h1 className={`${poppins.className}`}>Inicia sesion</h1>
-                            <Image src={Logo} alt="fat logo" width={250} />
+                            <Link href="/">
+                                <Image src={Logo} alt="fat logo" width={250} />
+                            </Link>
                         </div>
                         <form
                             className="flex flex-col justify-between items-center p-5 w-[25rem] h-[20rem]"

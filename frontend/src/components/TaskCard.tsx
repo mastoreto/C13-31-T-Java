@@ -5,7 +5,7 @@ import ImageC from '../assets/images/card-example-6.jpeg';
 
 const TaskCard: React.FC = () => {
     return (
-        <Card isFooterBlurred className="w-full h-[300px] sm:my-5 col-span-1 hover:scale-105 cursor-pointer">
+        <Card isFooterBlurred className="w-full h-[300px] sm:my-5 col-span-1 hover:scale-105 cursor-pointer mx-2">
             <CardHeader className="absolute z-10 top-1 flex-col items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">New</p>
                 <h4 className="text-black font-medium text-2xl">Acme camera</h4>

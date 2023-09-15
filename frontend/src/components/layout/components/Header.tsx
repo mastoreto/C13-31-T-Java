@@ -7,7 +7,7 @@ const Header: React.FC = () => {
     const isMain = router.pathname === '/';
 
     return (
-        <header className={`${isMain ? 'fixed' : 'block'} w-full`}>
+        <header className={`${isMain ? 'fixed' : 'block'} w-full z-50`}>
             <Nav />
         </header>
     );
