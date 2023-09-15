@@ -7,10 +7,11 @@ import Layout from '@components/layout';
 import { Password, Results, Profile } from '@components/UserComponents';
 import { useProfileSlice } from '@stores/profiles';
 import useApi from '@hooks/useApi';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const profile: NextPage = () => {
+    const [call, setCall] = useState(false);
     const isProfile = useProfileSlice((state) => state.isProfile);
     const isPassword = useProfileSlice((state) => state.isPassword);
     const isRequests = useProfileSlice((state) => state.isRequests);
@@ -19,19 +20,24 @@ const profile: NextPage = () => {
     const { getData, data: usuario, isLoading } = useApi('/client/details');
 
     const getUsuario = useCallback(async () => {
+        toast.loading('Cargando perfil');
         try {
+            setCall(true);
             await getData();
         } catch (error) {
             console.error(error);
+        } finally {
+            toast.dismiss();
+            setCall(false);
         }
-    }, [getData]);
-
-    isLoading && toast.loading('Cargando perfil');
-
-    if (usuario) toast.success('Perfil cargado correctamente');
+    }, [call]);
 
     useEffect(() => {
-        getUsuario();
+        if (usuario === undefined) {
+            getUsuario();
+        } else {
+            toast.success('Perfil cargado correctamente');
+        }
     }, [getUsuario]);
 
     return (
@@ -42,6 +48,7 @@ const profile: NextPage = () => {
         >
             <div className="mx-auto my-[5rem]">
                 <LayoutProfile>
+                    <Toaster />
                     {!isLoading && <Profile user={usuario} />}
                     {isPassword && <Password />}
                     {isRequests && <Results />}
