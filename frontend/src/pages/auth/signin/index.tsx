@@ -21,8 +21,14 @@ const SignIn: NextPage = () => {
     const { data: session } = useSession();
 
     useEffect(() => {
-        if (session) router.push('/provider/tasks');
-    }, []);
+        setTimeout(() => {
+            if (session) {
+                // APIrequest.defaults.headers.common['Authorization'] = 'Bearer ' + session.token.jwt;
+                if (session.token.user.roles[0] == 'Client') router.push('/client/tasks');
+                if (session.token.user.roles[0] == 'Provider') router.push('/provider/tasks');
+            }
+        }, 2000);
+    }, [session]);
 
     const formik = useFormik({
         initialValues: {
@@ -47,9 +53,6 @@ const SignIn: NextPage = () => {
                     toast.dismiss(loadingToast);
                     toast.success('Sesión iniciada correctamente');
                 }
-                setTimeout(() => {
-                    router.push('/provider/tasks');
-                }, 2000);
             } catch (error) {
                 toast.dismiss(loadingToast);
                 toast.error('Error ' + error);

@@ -24,7 +24,7 @@ const Profile: React.FC<ProfileProps> = ({ user }): JSX.Element => {
             </div>
             <div className="min-w-full text-xl my-4">Nombre:{user?.userName} </div>
             <div className="min-w-full text-xl my-4">Apellido: {user?.userLastname}</div>
-            <div className="min-w-full text-xl my-4">Nacionalidad: Polaca</div>
+            {/* <div className="min-w-full text-xl my-4">Nacionalidad: Polaca</div> */}
             <div className="min-w-full text-xl my-4">Correo: {user?.email}</div>
             <div className="min-w-full text-xl my-4">Telefóno: {user?.te}</div>
         </>
