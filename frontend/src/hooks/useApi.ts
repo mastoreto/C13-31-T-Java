@@ -24,11 +24,20 @@ const useApi = (endpoint: string): any => {
 
             if (session) {
                 session.then(async (auth) => {
-                    const res = await httpClient.get(getEndpoint, {
-                        headers: { Authorization: `Bearer ${auth?.token.jwt}` },
-                    });
-                    res.data && setIsLoading(false);
-                    !isLoading && setData(res.data);
+                    if (auth.token.user.roles[0] == 'Client') {
+                        const res = await httpClient.get('/client' + getEndpoint, {
+                            headers: { Authorization: `Bearer ${auth?.token.jwt}` },
+                        });
+                        res.data && setIsLoading(false);
+                        !isLoading && setData(res.data);
+                    }
+                    if (auth.token.user.roles[0] == 'Provider') {
+                        const res = await httpClient.get('/provider' + getEndpoint, {
+                            headers: { Authorization: `Bearer ${auth?.token.jwt}` },
+                        });
+                        res.data && setIsLoading(false);
+                        !isLoading && setData(res.data);
+                    }
                 });
             } else {
                 const res = await httpClient.get(getEndpoint);

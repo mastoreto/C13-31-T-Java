@@ -16,7 +16,7 @@ const profile: NextPage = () => {
     const isRequests = useProfileSlice((state) => state.isRequests);
     const isResults = useProfileSlice((state) => state.isResults);
 
-    const { getData, data: usuario, isLoading } = useApi('/client/details');
+    const { getData, data: usuario, isLoading } = useApi('/details');
 
     const getUsuario = useCallback(async () => {
         try {
@@ -24,7 +24,7 @@ const profile: NextPage = () => {
         } catch (error) {
             console.error(error);
         }
-    }, [getData]);
+    }, []);
 
     isLoading && toast.loading('Cargando perfil');
 
@@ -41,7 +41,7 @@ const profile: NextPage = () => {
             } `}
         >
             <div className="mx-auto my-[5rem]">
-                <LayoutProfile>
+                <LayoutProfile user={usuario}>
                     {!isLoading && <Profile user={usuario} />}
                     {isPassword && <Password />}
                     {isRequests && <Results />}

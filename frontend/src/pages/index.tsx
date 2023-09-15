@@ -22,7 +22,7 @@ const Home: NextPage = () => {
                 <article className="flex flex-row w-full h-full">
                     <div className="flex flex-col w-full h-full justify-center items-center">
                         <Image src={Logo} alt="logo" width={750} height={750} />
-                        <p className={`${montserrat.className} py-10 px-[5rem]`}>
+                        <p className={`${montserrat.className} py-10 px-[5rem] text-black`}>
                             En find a trader, hemos creado una plataforma en línea diseñada para permitir que personas
                             de todo el mundo publiquen y promocionen sus servicios de manera eficiente y efectiva. Ya
                             seas un profesional independiente, un artesano creativo o un experto en cualquier campo,
@@ -40,10 +40,10 @@ const Home: NextPage = () => {
                             Registrarse
                         </Button>
                         <p>
-                            ¿Ya estas registrado?{' '}
+                            <strong className="text-black">¿Ya estas registrado?</strong>
                             <Link
                                 href="/auth/signin"
-                                className={`${poppins.className} text-blue-500 font-bold hover:text-blue-400`}
+                                className={`${poppins.className} text-black text-blue-500 font-bold hover:text-blue-400`}
                             >
                                 Inicia sesion
                             </Link>
@@ -63,12 +63,12 @@ const Home: NextPage = () => {
                     los proyectos que vos siempre quisiste con solo unos clicks
                 </p>
                 <div className="flex w-full justify-between">
-                    <TaskCard />
-                    <TaskCard />
-                    <TaskCard />
-                    <TaskCard />
-                    <TaskCard />
-                    <TaskCard />
+                    <TaskCard descripcion={'Remodelar baño'} image={''} fecha={'10/10/23'} />
+                    <TaskCard descripcion={'Construir cobertizo'} image={''} fecha={'10/10/23'} />
+                    <TaskCard descripcion={'Pintar fachada'} image={''} fecha={'10/10/23'} />
+                    <TaskCard descripcion={'Terminación de obra'} image={''} fecha={'10/10/23'} />
+                    <TaskCard descripcion={'Construcción de parrilero'} image={''} fecha={'10/10/23'} />
+                    <TaskCard descripcion={'Limpieza de fondo'} image={''} fecha={'10/10/23'} />
                 </div>
             </section>
             <section className="bg-white w-full h-[40rem] flex flex-row justify-between px-20 py-20 items-center">

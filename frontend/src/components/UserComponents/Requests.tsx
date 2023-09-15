@@ -8,6 +8,7 @@ import cldClient from '@libs/cldClient';
 import { Poppins } from 'next/font/google';
 import Alert from '@components/Alert';
 import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 const poppins = Poppins({ weight: '800', subsets: ['latin-ext'] });
 
@@ -18,19 +19,22 @@ type Value = {
 };
 
 const Requests: React.FC = () => {
+    const router = useRouter();
+
     const [lugares] = useState([
         { id: 1, nombre: 'South' },
         { id: 2, nombre: 'West' },
         { id: 3, nombre: 'North' },
         { id: 4, nombre: 'East' },
     ]);
-    const { mutationApi, isLoading, data, error: storeError } = useApi('/client/request/new');
+    const { mutationApi, data, error: storeError } = useApi('/client/request/new');
 
     const handleSubmit = async (values) => {
         const { zoneDTO, description, imagesDTO } = values;
         const zona = lugares.find((lugar) => `${lugar.id}` === zoneDTO);
 
         try {
+            const toastLoading = toast.loading('Publicando solicitud');
             const uploadImages = await cldClient(imagesDTO);
 
             if (Array.isArray(uploadImages) && uploadImages.length > 0) {
@@ -42,15 +46,17 @@ const Requests: React.FC = () => {
 
                 await mutationApi('POST', valuesRequest);
 
-                isLoading && toast.loading('Cargando solicitud');
-
-                if (data.status === 201) {
+                if (data?.status === 201) {
+                    toast.dismiss(toastLoading);
                     toast.success('Nueva solicitud registrada');
                 } else {
                     toast.error('Error al cargar imágenes');
                 }
 
                 storeError && toast.error(storeError);
+                // setTimeout(() => {
+                router.push('/client/tasks');
+                // }, 2000);
             }
         } catch (error) {
             toast.error('Error: ' + error);
@@ -135,7 +141,7 @@ const Requests: React.FC = () => {
 
                     <Select
                         isRequired
-                        label="Selecciona una Provincia"
+                        label="Selecciona una Zona"
                         className="max-w-xs mt-2"
                         name="zoneDTO"
                         onChange={(e) => formik.handleChange(e)}

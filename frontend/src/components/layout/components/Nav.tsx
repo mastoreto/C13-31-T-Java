@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import Image from 'next/image';
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from '@nextui-org/react';
 import Logo from '../../../assets/images/FaT100.svg';
@@ -30,9 +29,17 @@ const Nav: React.FC = () => {
                         </Link>
                     </NavbarItem>
                     <NavbarItem isActive>
-                        <Link href="/provider/tasks" aria-current="page">
-                            Trabajos
-                        </Link>
+                        {session ? (
+                            session.token.user.roles[0] == 'Client' ? (
+                                <Link href="/client/tasks" aria-current="page">
+                                    Trabajos
+                                </Link>
+                            ) : (
+                                <Link href="/provider/tasks" aria-current="page">
+                                    Trabajos
+                                </Link>
+                            )
+                        ) : null}
                     </NavbarItem>
                     <NavbarItem>
                         <Button
