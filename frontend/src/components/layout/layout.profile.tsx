@@ -3,9 +3,16 @@ import { Card, CardHeader, CardBody, Image, Listbox, ListboxItem } from '@nextui
 import { useProfileSlice } from '@stores/profiles';
 interface PropsLayout {
     children: React.ReactNode;
+    user: {
+        imageLink: string | null;
+        userName: string;
+        userLastname: string;
+        email: string;
+        te: string;
+    };
 }
 
-const Layout: React.FC<PropsLayout> = ({ children }) => {
+const Layout: React.FC<PropsLayout> = ({ children, user }) => {
     const setIsState = useProfileSlice((state) => state.setIsState);
 
     const setTab = (key) => {
@@ -21,7 +28,7 @@ const Layout: React.FC<PropsLayout> = ({ children }) => {
                             isZoomed
                             alt="Card background"
                             className="object-cover rounded-xl"
-                            src="/images/foto.png"
+                            src={user?.imageLink}
                             width="w1/5"
                         />
                     </CardBody>
