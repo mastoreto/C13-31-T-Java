@@ -4,13 +4,13 @@ import { mutate } from 'swr';
 import httpClient from '@libs/httpClient';
 import { getSession, useSession } from 'next-auth/react';
 
-const useApi = (): any => {
+const useApi = (endpoint: string): any => {
     const { data: session } = useSession();
     const [data, setData] = useState<any>();
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const getData = async (endpoint: string, id?: string): Promise<boolean> => {
+    const getData = async (id?: string): Promise<boolean> => {
         if (!endpoint) {
             throw new Error('Endpoint is required');
         }
@@ -43,7 +43,7 @@ const useApi = (): any => {
         }
     };
 
-    const mutationApi = async (endpoint: string, method: string, values: any) => {
+    const mutationApi = async (method: string, values: any) => {
         if (!endpoint) {
             throw new Error('Endpoint is required');
         }
@@ -58,14 +58,9 @@ const useApi = (): any => {
                           headers: { Authorization: `Bearer ${session?.token.jwt}` },
                       });
 
-            if (res.status !== 200) {
-                setError(res.statusText);
-                throw new Error(res.statusText); // Propaga el error
-            }
-
             setIsLoading(false);
             mutate(endpoint, res.data, false);
-            return res.data;
+            setData(res);
         } catch (error) {
             setIsLoading(false); // Restablece isLoading en caso de error
             setError(error);

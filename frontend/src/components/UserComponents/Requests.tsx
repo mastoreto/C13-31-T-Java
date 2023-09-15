@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import cldClient from '@libs/cldClient';
 import { Poppins } from 'next/font/google';
 import Alert from '@components/Alert';
+import toast, { Toaster } from 'react-hot-toast';
 
 const poppins = Poppins({ weight: '800', subsets: ['latin-ext'] });
 
@@ -23,7 +24,7 @@ const Requests: React.FC = () => {
         { id: 3, nombre: 'North' },
         { id: 4, nombre: 'East' },
     ]);
-    const { mutationApi } = useApi();
+    const { mutationApi, isLoading, data, error: storeError } = useApi('/client/request/new');
 
     const handleSubmit = async (values) => {
         const { zoneDTO, description, imagesDTO } = values;
@@ -39,13 +40,20 @@ const Requests: React.FC = () => {
                     imagesDTO: uploadImages,
                 };
 
-                const res = await mutationApi('/client/request/new', 'POST', valuesRequest);
-                console.log(res);
-            } else {
-                console.log('Error al cargar imágenes');
+                await mutationApi('POST', valuesRequest);
+
+                isLoading && toast.loading('Cargando solicitud');
+
+                if (data.status === 201) {
+                    toast.success('Nueva solicitud registrada');
+                } else {
+                    toast.error('Error al cargar imágenes');
+                }
+
+                storeError && toast.error(storeError);
             }
         } catch (error) {
-            console.error(error);
+            toast.error('Error: ' + error);
         }
     };
 
@@ -84,6 +92,7 @@ const Requests: React.FC = () => {
 
     return (
         <div className="flex flex-row w-full justify-center items-center h-screen">
+            <Toaster />
             <div>
                 <div className="flex justify-center items-center  bg-workman bg-cover bg-center h-[40rem] w-[25rem] z-10  mx-2 rounded-xl relative cursor-pointer group">
                     <div className="w-full h-full bg-[#71ccff] rounded-xl opacity-80 absolute backd z-20 grayscale-0 group-hover:grayscale transition duration-300 ease-in-out"></div>
