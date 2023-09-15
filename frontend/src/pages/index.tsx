@@ -8,13 +8,15 @@ import Layout from '@components/layout';
 
 import Construction from '../assets/images/construction.svg';
 import Logo from '../assets/images/findatrader.png';
+import httpClient from '@libs/httpClient';
 
-const popins = Poppins({ weight: '600', subsets: ['latin'] });
+const poppins = Poppins({ weight: '600', subsets: ['latin'] });
 const montserrat = Montserrat({ weight: '400', subsets: ['latin'] });
 
 const Home: NextPage = () => {
+    httpClient.defaults.baseURL = 'https://findatrader-jebius.koyeb.app/api/v1';
     return (
-        <Layout title='Inicio'>
+        <Layout title="Inicio">
             <section className="w-full h-screen bg-white px-5">
                 <article className="flex flex-row w-full h-full">
                     <div className="flex flex-col w-full h-full justify-center items-center">
@@ -26,12 +28,22 @@ const Home: NextPage = () => {
                             nuestra plataforma te brinda la oportunidad de conectarte con potenciales clientes y hacer
                             crecer tu negocio.
                         </p>
-                        <Button href="/auth/signup" as={Link} color="primary" showAnchorIcon variant="solid">
+                        <Button
+                            href="/auth/signup"
+                            as={Link}
+                            color="primary"
+                            showAnchorIcon
+                            variant="solid"
+                            className={`${poppins.className}`}
+                        >
                             Registrarse
                         </Button>
                         <p>
                             ¿Ya estas registrado?{' '}
-                            <Link href="/auth/signin" className="text-blue-500 font-bold hover:text-blue-400">
+                            <Link
+                                href="/auth/signin"
+                                className={`${poppins.className} text-blue-500 font-bold hover:text-blue-400`}
+                            >
                                 Inicia sesion
                             </Link>
                         </p>
@@ -41,16 +53,10 @@ const Home: NextPage = () => {
                     </div>
                 </article>
             </section>
-            <section className='bg-[#66c8fe] w-full h-[30rem] flex flex-row justify-between p-5 items-center'>
-                <div className='text-5xl'>
-                    200 Usuarios
-                </div>
-                <div className='text-5xl'>
-                    2500 Trabajos publicados
-                </div>
-                <div className='text-5xl'>
-                    2500 Trabajos validados
-                </div>
+            <section className="bg-[#66c8fe] w-full h-[30rem] flex flex-row justify-between p-5 items-center">
+                <div className="text-5xl">200 Usuarios</div>
+                <div className="text-5xl">2500 Trabajos publicados</div>
+                <div className="text-5xl">2500 Trabajos validados</div>
             </section>
         </Layout>
     );

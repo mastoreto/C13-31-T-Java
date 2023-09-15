@@ -16,11 +16,13 @@ const Nav: React.FC = () => {
 
     return (
         <Navbar className="bg-white">
-            {router.pathname !== '/' && <NavbarBrand>
-                <Image src={Logo} alt="FindATrader" width={50} height={50} />
-                <p className={`${poppins} font-bold text-inherit`}>FindATrader</p>
-            </NavbarBrand>}
-            {session ?
+            {router.pathname !== '/' && (
+                <NavbarBrand>
+                    <Image src={Logo} alt="FindATrader" width={50} height={50} />
+                    <p className={`${poppins} font-bold text-inherit`}>FindATrader</p>
+                </NavbarBrand>
+            )}
+            {session ? (
                 <NavbarContent className="hidden sm:flex gap-4" justify="center">
                     <NavbarItem className="hidden">
                         <Link color="foreground" href="/">
@@ -43,7 +45,8 @@ const Nav: React.FC = () => {
                             Publicar
                         </Button>
                     </NavbarItem>
-                </NavbarContent> : null}
+                </NavbarContent>
+            ) : null}
             <NavbarContent justify="end">
                 {session ? (
                     <User />

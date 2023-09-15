@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -21,9 +21,6 @@ public class Bid {
     @ManyToOne(fetch = FetchType.EAGER)
     private UserEntity provider;
 
-    @ManyToOne
-    private Request request;
-
     @Column (length = 200)
     private String response;
 
@@ -32,7 +29,7 @@ public class Bid {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDateTime date;
 
     @Column (length = 200)
     private String comments;

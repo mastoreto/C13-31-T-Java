@@ -15,22 +15,33 @@ public class UserEntityService {
     I_UserRepository userRepository;
 
     public Optional<UserEntity> findByEmail(String email){
-
+        try {
             return userRepository.findByEmail(email);
-
+        } catch (Exception e) {
+            throw new CustomedHandler("Error accessing user database");
+        }
     }
     public Optional<UserEntity> findByEmailAndActiveTrue(String email){
-
-        return userRepository.findByEmailAndActiveTrue(email);
-
+        try {
+            return userRepository.findByEmailAndActiveTrue(email);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error accessing user database");
+        }
     }
 
-    public void save(UserEntity userEntity){
-
-            this.userRepository.save(userEntity);
+    public UserEntity save(UserEntity userEntity){
+        try {
+            return userRepository.save(userEntity);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error accessing user database");
+        }
     }
 
     public Optional<UserEntity> findById(Long id){
-            return this.userRepository.findById(id);
+        try {
+            return userRepository.findById(id);
+        } catch (Exception e) {
+            throw new CustomedHandler("Error accessing user database");
+        }
     }
 }

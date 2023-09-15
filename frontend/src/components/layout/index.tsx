@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { useSession } from 'next-auth/react';
 import Header from './components/Header';
 import { useRouter } from 'next/router';
-
 interface LayoutProps {
     children: React.ReactNode;
     title: string;
@@ -16,11 +15,8 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
     const router = useRouter();
 
     useEffect(() => {
-
-        status === 'unauthenticated' && router.pathname !== "/" && router.push('/auth/signin');
+        status === 'unauthenticated' && router.pathname !== '/' && router.push('/auth/signin');
     }, [status, router]);
-
-
 
     return (
         <>
